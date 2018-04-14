@@ -1,0 +1,20 @@
+PODS:
+  - RxSwift (4.1.2)
+  - Unbox (2.5.0)
+
+DEPENDENCIES:
+  - RxSwift (~> 4.1)
+  - Unbox (~> 2.0)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - RxSwift
+    - Unbox
+
+SPEC CHECKSUMS:
+  RxSwift: e49536837d9901277638493ea537394d4b55f570
+  Unbox: 30e437e6151a6de16139375fd4e8dd9a664cfbf7
+
+PODFILE CHECKSUM: 968e1176762158af630632222f6a2b977df9a344
+
+COCOAPODS: 1.5.0
