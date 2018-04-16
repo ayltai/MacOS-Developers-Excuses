@@ -31,7 +31,7 @@
 		E71263012081016D006D94DA /* DEPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEPhoto.swift; sourceTree = "<group>"; };
 		E712630320810241006D94DA /* DEClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEClient.swift; sourceTree = "<group>"; };
 		E77A61982081F06800F8E1B7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		E7CDCC6C2080F42200A553DF /* devexcuses.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = devexcuses.saver; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7CDCC6C2080F42200A553DF /* Developers Excuses.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Developers Excuses.saver"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CDCC732080F42200A553DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7CDCC792080F56100A553DF /* DEDevExcusesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEDevExcusesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,7 +94,7 @@
 		E7CDCC6D2080F42200A553DF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E7CDCC6C2080F42200A553DF /* devexcuses.saver */,
+				E7CDCC6C2080F42200A553DF /* Developers Excuses.saver */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,7 +146,7 @@
 			);
 			name = devexcuses;
 			productName = devexcuses;
-			productReference = E7CDCC6C2080F42200A553DF /* devexcuses.saver */;
+			productReference = E7CDCC6C2080F42200A553DF /* Developers Excuses.saver */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -360,7 +360,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.ayltai.devexcuses;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Developers Excuses";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = saver;
@@ -383,7 +383,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.ayltai.devexcuses;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Developers Excuses";
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = saver;
 			};
