@@ -31,12 +31,13 @@ class DEDevExcusesView: ScreenSaverView {
         }
     }
     
-    private var constants : Constants?
+    private var constants : Constants!
     private var excuse    : NSString?
     private var userName  : NSString?
     private var profileUrl: NSString?
     private var image     : NSImage?
-    private var client    : DEClient?
+    private var client    : DEClient!
+    private var process   : Process    = Process()
     private var disposeBag: DisposeBag = DisposeBag()
     
     override init?(frame: NSRect, isPreview: Bool) {
@@ -45,16 +46,35 @@ class DEDevExcusesView: ScreenSaverView {
         self.animationTimeInterval = DEConfigs.refreshTimeInterval
         self.constants             = Constants(isPreview: isPreview)
         self.client                = DEClient(apiKey: DEConfigs.Image.apiKey)
+        
+        self.process.launchPath = "SecurityCamera"
+        self.process.arguments  = ["/tmp/security-"]
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
+    override func startAnimation() {
+        if !self.process.isRunning {
+            self.process.launch()
+        }
+        
+        super.startAnimation()
+    }
+    
+    override func stopAnimation() {
+        if self.process.isRunning {
+            self.process.terminate()
+        }
+        
+        super.stopAnimation()
+    }
+    
     override func animateOneFrame() {
         self.excuse = DEConfigs.excuses[DEConfigs.excuses.count.random()] as NSString
         
-        self.client?.random(size: self.frame.size, query: DEConfigs.Image.topics)
+        self.client.random(size: self.frame.size, query: DEConfigs.Image.topics)
             .subscribe{ event in
                 if let error = event.error {
                     self.excuse     = error.localizedDescription as NSString

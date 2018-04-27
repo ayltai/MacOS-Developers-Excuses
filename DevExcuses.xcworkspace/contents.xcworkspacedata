@@ -5,6 +5,9 @@
       location = "group:DevExcuses.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:SecurityCamera/SecurityCamera.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
