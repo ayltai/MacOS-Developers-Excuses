@@ -31,14 +31,16 @@ class DEDevExcusesView: ScreenSaverView {
         }
     }
     
-    private var constants : Constants!
-    private var excuse    : NSString?
-    private var userName  : NSString?
-    private var profileUrl: NSString?
-    private var image     : NSImage?
-    private var client    : DEClient!
-    private var process   : Process    = Process()
-    private var disposeBag: DisposeBag = DisposeBag()
+    private var constants   : Constants!
+    private var excuse      : NSString?
+    private var userName    : NSString?
+    private var profileUrl  : NSString?
+    private var image       : NSImage?
+    private var client      : DEClient!
+    private var kenBurnsView: DEKenBurnsView = DEKenBurnsView()
+    private var process     : Process        = Process()
+    private var disposeBag  : DisposeBag     = DisposeBag()
+    private var startTime   : Double?
     
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
@@ -71,7 +73,7 @@ class DEDevExcusesView: ScreenSaverView {
         super.stopAnimation()
     }
     
-    override func animateOneFrame() {
+    private func refreshImage() {
         self.excuse = DEConfigs.excuses[DEConfigs.excuses.count.random()] as NSString
         
         self.client.random(size: self.frame.size, query: DEConfigs.Image.topics)
@@ -80,8 +82,6 @@ class DEDevExcusesView: ScreenSaverView {
                     self.excuse     = error.localizedDescription as NSString
                     self.userName   = nil
                     self.profileUrl = nil
-                    
-                    self.setNeedsDisplay(self.frame)
                 } else if let photo = event.element {
                     if let user = photo.user {
                         self.userName = user.name as NSString?
@@ -101,9 +101,9 @@ class DEDevExcusesView: ScreenSaverView {
                                 self.profileUrl = nil
                             } else if let data = event.element {
                                 self.image = NSImage(data: data)
+                                
+                                self.kenBurnsView.animate(image: self.image, duration: DEConfigs.updateTimeInterval)
                             }
-                            
-                            self.setNeedsDisplay(self.frame)
                         }
                         .disposed(by: self.disposeBag)
                 }
@@ -111,10 +111,22 @@ class DEDevExcusesView: ScreenSaverView {
             .disposed(by: self.disposeBag)
     }
     
+    override func animateOneFrame() {
+        let now: Double = Date().timeIntervalSince1970
+        
+        if self.startTime == nil || now - self.startTime! >= DEConfigs.updateTimeInterval {
+            self.refreshImage()
+            
+            self.startTime = now
+        }
+        
+        self.setNeedsDisplay(self.frame)
+    }
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        self.image?.draw(at: self.frame.origin)
+        self.kenBurnsView.draw(self.frame)
         
         if let excuse = self.excuse, let constants = self.constants, let font = constants.excuseFont {
             let lineHeight = font.lineHeight

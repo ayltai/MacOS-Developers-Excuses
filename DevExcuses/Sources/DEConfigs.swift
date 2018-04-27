@@ -58,7 +58,8 @@ struct DEConfigs {
         ]
     }
     
-    static let refreshTimeInterval: Double = 15.0
+    static let updateTimeInterval : Double = 15.0
+    static let refreshTimeInterval: Double = 1.0 / 30.0
     static let textMargin         : Int    = 16
     
     static let excuses: [String] = [
