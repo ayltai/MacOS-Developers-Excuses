@@ -45,7 +45,7 @@ class DEDevExcusesView: ScreenSaverView {
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
         
-        self.animationTimeInterval = DEConfigs.refreshTimeInterval
+        self.animationTimeInterval = DEConfigs.frameDuraion
         self.constants             = Constants(isPreview: isPreview)
         self.client                = DEClient(apiKey: DEConfigs.Image.apiKey)
         
@@ -74,8 +74,6 @@ class DEDevExcusesView: ScreenSaverView {
     }
     
     private func refreshImage() {
-        self.excuse = DEConfigs.excuses[DEConfigs.excuses.count.random()] as NSString
-        
         self.client.random(size: self.frame.size, query: DEConfigs.Image.topics)
             .subscribe{ event in
                 if let error = event.error {
@@ -100,9 +98,10 @@ class DEDevExcusesView: ScreenSaverView {
                                 self.userName   = nil
                                 self.profileUrl = nil
                             } else if let data = event.element {
-                                self.image = NSImage(data: data)
+                                self.image  = NSImage(data: data)
+                                self.excuse = DEConfigs.excuses[DEConfigs.excuses.count.random()] as NSString
                                 
-                                self.kenBurnsView.animate(image: self.image, duration: DEConfigs.updateTimeInterval)
+                                self.kenBurnsView.animate(image: self.image, duration: DEConfigs.refreshTimeInterval)
                             }
                         }
                         .disposed(by: self.disposeBag)
@@ -114,7 +113,7 @@ class DEDevExcusesView: ScreenSaverView {
     override func animateOneFrame() {
         let now: Double = Date().timeIntervalSince1970
         
-        if self.startTime == nil || now - self.startTime! >= DEConfigs.updateTimeInterval {
+        if self.startTime == nil || now - self.startTime! >= DEConfigs.refreshTimeInterval {
             self.refreshImage()
             
             self.startTime = now

@@ -1,13 +1,8 @@
 import Cocoa
 
 final class DEKenBurnsView: NSView {
-    private static let maxScale      : Double = 2.0
-    private static let minScale      : Double = 1.0
-    private static let maxTranslation: Double = 0.0
-    private static let minTranslation: Double = -(DEKenBurnsView.maxScale - DEKenBurnsView.minScale)
-    
     private var image           : NSImage?
-    private var duration        : Double = DEConfigs.refreshTimeInterval
+    private var duration        : Double = DEConfigs.frameDuraion
     private var startTime       : Double = 0
     private var fromScale       : Double = 0
     private var toScale         : Double = 0
@@ -49,10 +44,10 @@ final class DEKenBurnsView: NSView {
     }
     
     private static var randomScale: Double {
-        return Double.random(min: DEKenBurnsView.minScale, max: DEKenBurnsView.maxScale)
+        return Double.random(min: DEConfigs.Effect.minScale, max: DEConfigs.Effect.maxScale)
     }
     
     private static func randomTranslation(max: Double, scale: Double) -> Double {
-        return max * (scale - 1) * Double.random(min: DEKenBurnsView.minTranslation, max: DEKenBurnsView.maxTranslation)
+        return max * (scale - 1) * Double.random(min: DEConfigs.Effect.minTranslation, max: DEConfigs.Effect.maxTranslation)
     }
 }

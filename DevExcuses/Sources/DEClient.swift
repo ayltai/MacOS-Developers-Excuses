@@ -21,7 +21,7 @@ final class DEClient {
             ]
             
             if let query = query {
-                queryItems.append(URLQueryItem(name: "query", value: query.joined(separator: ",")))
+                queryItems.append(URLQueryItem(name: "query", value: query[query.count.random()]))
             }
             
             var mutable = URLComponents(url: URL(string: DEClient.Constants.endPoint)!, resolvingAgainstBaseURL: true)!
