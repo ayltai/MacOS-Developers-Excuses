@@ -56,7 +56,7 @@ class DEDevExcusesView: ScreenSaverView {
     }
     
     override func startAnimation() {
-        if !self.process.isRunning {
+        if !self.isPreview && !self.process.isRunning {
             self.process.launch()
         }
         
@@ -64,7 +64,7 @@ class DEDevExcusesView: ScreenSaverView {
     }
     
     override func stopAnimation() {
-        if self.process.isRunning {
+        if !self.isPreview && self.process.isRunning {
             self.process.terminate()
         }
         
@@ -72,8 +72,6 @@ class DEDevExcusesView: ScreenSaverView {
     }
     
     override func animateOneFrame() {
-        self.excuse = DEConfigs.excuses[DEConfigs.excuses.count.random()] as NSString
-        
         self.client.random(size: self.frame.size, query: DEConfigs.Image.topics)
             .subscribe{ event in
                 if let error = event.error {
@@ -83,14 +81,6 @@ class DEDevExcusesView: ScreenSaverView {
                     
                     self.setNeedsDisplay(self.frame)
                 } else if let photo = event.element {
-                    if let user = photo.user {
-                        self.userName = user.name as NSString?
-                        
-                        if let links = user.links {
-                            self.profileUrl = links.html as NSString?
-                        }
-                    }
-                    
                     photo.download()
                         .observeOn(MainScheduler.instance)
                         .subscribeOn(CurrentThreadScheduler.instance)
@@ -100,7 +90,16 @@ class DEDevExcusesView: ScreenSaverView {
                                 self.userName   = nil
                                 self.profileUrl = nil
                             } else if let data = event.element {
-                                self.image = NSImage(data: data)
+                                if let user = photo.user {
+                                    self.userName = user.name as NSString?
+                                    
+                                    if let links = user.links {
+                                        self.profileUrl = links.html as NSString?
+                                    }
+                                }
+                                
+                                self.excuse = DEConfigs.excuses[DEConfigs.excuses.count.random()] as NSString
+                                self.image  = NSImage(data: data)
                             }
                             
                             self.setNeedsDisplay(self.frame)
