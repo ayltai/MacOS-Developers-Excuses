@@ -61,7 +61,6 @@ All parameters can be adjusted in [`DEConfigs.swift`](https://github.com/ayltai/
 | Parameter                       | Purpose                                   | Default        |
 |:--------------------------------|:------------------------------------------|---------------:|
 | `DEConfigs.refreshTimeInterval` | Background image refresh time interval    | 15 seconds     |
-| `DEConfigs.frameDuraion`        | Background image animation frame interval | 1 / 30 seconds |
 
 ## Compatibility
 Developers Excuses screen saver requires OS X Yosemite or later.
