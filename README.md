@@ -21,7 +21,7 @@ All parameters can be adjusted in [`DEConfigs.swift`](https://github.com/ayltai/
 |:-------------------------|:-----------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `DEConfigs.Image.apiKey` | Unsplash API key | (empty)                                                                                                                                                                                                                                                                                                                         |
 | `DEConfigs.Image.alpha`  | Image alpha      | 0.85                                                                                                                                                                                                                                                                                                                            |
-| `DEConfigs.Image.topics` | Image seach tags | nature<br>landscape<br>water<br>outdoor<br>indoor<br>interior<br>wallpaper<br>urban<br>city<br>street<br>tropical<br>rock<br>abandoned<br>adventure<br>architecture<br>retro<br>vintage<br>coffee<br>espresso<br>cafe<br>mac<br>imac<br>macbook<br>iphone<br>ipad<br>android<br>computer<br>programming<br>technology<br>animal |
+| `DEConfigs.Image.topics` | Image seach tags | nature<br>landscape<br>water<br>sea<br>forest<br>outdoor<br>indoor<br>interior<br>wallpaper<br>urban<br>city<br>street<br>tropical<br>rock<br>abandoned<br>adventure<br>architecture<br>retro<br>vintage<br>coffee<br>espresso<br>cafe<br>mac<br>imac<br>macbook<br>iphone<br>ipad<br>android<br>computer<br>programming<br>technology<br>animal |
 
 ### Font - Main text
 | Parameter                       | Purpose                                  | Default |
@@ -41,13 +41,13 @@ All parameters can be adjusted in [`DEConfigs.swift`](https://github.com/ayltai/
 | Parameter                        | Purpose                                                | Default |
 |:---------------------------------|:-------------------------------------------------------|--------:|
 | `DEConfigs.Excuse.Shadow.offset` | Center text drop shadow horizontal and vertical offset | 0       |
-| `DEConfigs.Excuse.Shadow.radius` | Center text drop shadow radius                         | 10      |
+| `DEConfigs.Excuse.Shadow.radius` | Center text drop shadow radius                         | 12      |
 
 ### Shadow - Credit text
 | Parameter                        | Purpose                                                               | Default |
 |:---------------------------------|:----------------------------------------------------------------------|--------:|
 | `DEConfigs.Excuse.Shadow.offset` | Bottom left and right text drop shadow horizontal and vertical offset | 0       |
-| `DEConfigs.Excuse.Shadow.radius` | Bottom left and right text drop shadow radius                         | 5       |
+| `DEConfigs.Excuse.Shadow.radius` | Bottom left and right text drop shadow radius                         | 6       |
 
 ### Ken Burns effect
 | Parameter                         | Purpose                                              |                                                            |
