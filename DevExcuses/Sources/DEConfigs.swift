@@ -69,6 +69,13 @@ struct DEConfigs {
         ]
     }
     
+    struct Effect {
+        static let maxScale      : Double = 1.75
+        static let minScale      : Double = 1
+        static let maxTranslation: Double = 0
+        static let minTranslation: Double = -(DEConfigs.Effect.maxScale - DEConfigs.Effect.minScale)
+    }
+    
     static let refreshTimeInterval: Double = 15.0
     static let textMargin         : Int    = 16
     

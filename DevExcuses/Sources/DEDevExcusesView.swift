@@ -35,7 +35,7 @@ class DEDevExcusesView: ScreenSaverView {
     private var excuse    : NSString?
     private var userName  : NSString?
     private var profileUrl: NSString?
-    private var image     : NSImage?
+    private var imageView : DEKenBurnsView?
     private var client    : DEClient!
     private var process   : Process    = Process()
     private var disposeBag: DisposeBag = DisposeBag()
@@ -99,7 +99,18 @@ class DEDevExcusesView: ScreenSaverView {
                                 }
                                 
                                 self.excuse = DEConfigs.excuses[DEConfigs.excuses.count.random()] as NSString
-                                self.image  = NSImage(data: data)
+                                
+                                let imageView: DEKenBurnsView = DEKenBurnsView(frame: self.frame)
+                                self.addSubview(imageView)
+                                
+                                imageView.image = NSImage(data: data)
+                                imageView.animate(duration: DEConfigs.refreshTimeInterval)
+                                
+                                if let oldImageView = self.imageView {
+                                    oldImageView.removeFromSuperview()
+                                }
+                                
+                                self.imageView = imageView
                             }
                             
                             self.setNeedsDisplay(self.frame)
@@ -112,8 +123,6 @@ class DEDevExcusesView: ScreenSaverView {
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        
-        self.image?.draw(at: self.frame.origin)
         
         if let excuse = self.excuse, let constants = self.constants, let font = constants.excuseFont {
             let lineHeight = font.lineHeight

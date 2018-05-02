@@ -49,6 +49,14 @@ All parameters can be adjusted in [`DEConfigs.swift`](https://github.com/ayltai/
 | `DEConfigs.Excuse.Shadow.offset` | Bottom left and right text drop shadow horizontal and vertical offset | 0       |
 | `DEConfigs.Excuse.Shadow.radius` | Bottom left and right text drop shadow radius                         | 5       |
 
+### Ken Burns effect
+| Parameter                         | Purpose                                              |                                                            |
+|:----------------------------------|:-----------------------------------------------------|-----------------------------------------------------------:|
+| `DEConfigs.Effect.maxScale`       | Maximum zoom scale                                   | 1.75                                                       |
+| `DEConfigs.Effect.minScale`       | Minimum zoom scale                                   | 1                                                          |
+| `DEConfigs.Effect.maxTranslation` | Maximum horizontal and vertical translation distance | 0                                                          |
+| `DEConfigs.Effect.minTranslation` | Minimum horizontal and vertical translation distance | `-(DEConfigs.Effect.maxScale - DEConfigs.Effect.minScale)` |
+
 ### General
 | Parameter                       | Purpose                                   | Default        |
 |:--------------------------------|:------------------------------------------|---------------:|

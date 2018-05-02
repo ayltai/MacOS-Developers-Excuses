@@ -48,6 +48,12 @@ extension Int {
     }
 }
 
+extension Double {
+    public static func random(min: Double, max: Double) -> Double {
+        return Double(arc4random()) / 0xffffffff * (max - min) + min
+    }
+}
+
 extension DEPhoto {
     func download() -> Observable<Data> {
         return Observable.create { observer in
