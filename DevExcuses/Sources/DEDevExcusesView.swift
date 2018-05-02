@@ -4,18 +4,21 @@ import ScreenSaver
 
 class DEDevExcusesView: ScreenSaverView {
     private struct Constants {
-        let excuseStyle    : NSMutableParagraphStyle = NSMutableParagraphStyle()
-        let userNameStyle  : NSMutableParagraphStyle = NSMutableParagraphStyle()
-        let profileUrlStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        let excuseShadow   : NSShadow                = NSShadow()
-        let creditShadow   : NSShadow                = NSShadow()
-        
-        var excuseFont: NSFont?
-        var creditFont: NSFont?
+        let excuseStyle     : NSMutableParagraphStyle = NSMutableParagraphStyle()
+        let userNameStyle   : NSMutableParagraphStyle = NSMutableParagraphStyle()
+        let profileUrlStyle : NSMutableParagraphStyle = NSMutableParagraphStyle()
+        let excuseShadow    : NSShadow                = NSShadow()
+        let creditShadow    : NSShadow                = NSShadow()
+        let excuseFont      : NSFont!
+        let creditFont      : NSFont!
+        let excuseLineHeight: Float
+        let creditLineHeight: Float
         
         init(isPreview: Bool) {
-            self.excuseFont = NSFont(name: DEConfigs.Excuse.Font.name, size: isPreview ? DEConfigs.Excuse.Font.preview : DEConfigs.Excuse.Font.size)
-            self.creditFont = NSFont(name: DEConfigs.Credit.Font.name, size: isPreview ? DEConfigs.Credit.Font.preview : DEConfigs.Credit.Font.size)
+            self.excuseFont       = NSFont(name: DEConfigs.Excuse.Font.name, size: isPreview ? DEConfigs.Excuse.Font.preview : DEConfigs.Excuse.Font.size)
+            self.creditFont       = NSFont(name: DEConfigs.Credit.Font.name, size: isPreview ? DEConfigs.Credit.Font.preview : DEConfigs.Credit.Font.size)
+            self.excuseLineHeight = self.excuseFont.lineHeight
+            self.creditLineHeight = self.creditFont.lineHeight
             
             self.excuseStyle.alignment     = NSTextAlignment.center
             self.userNameStyle.alignment   = NSTextAlignment.left
@@ -31,11 +34,12 @@ class DEDevExcusesView: ScreenSaverView {
         }
     }
     
+    private var imageView     : DEKenBurnsView?
+    private var excuseView    : NSTextField?
+    private var userNameView  : NSTextField?
+    private var profileUrlView: NSTextField?
+    
     private var constants : Constants!
-    private var excuse    : NSString?
-    private var userName  : NSString?
-    private var profileUrl: NSString?
-    private var imageView : DEKenBurnsView?
     private var client    : DEClient!
     private var process   : Process    = Process()
     private var disposeBag: DisposeBag = DisposeBag()
@@ -75,9 +79,12 @@ class DEDevExcusesView: ScreenSaverView {
         self.client.random(size: self.frame.size, query: DEConfigs.Image.topics)
             .subscribe{ event in
                 if let error = event.error {
-                    self.excuse     = error.localizedDescription as NSString
-                    self.userName   = nil
-                    self.profileUrl = nil
+                    self.update(
+                        excuse    : error.localizedDescription,
+                        background: nil,
+                        userName  : nil,
+                        profileUrl: nil
+                    )
                     
                     self.setNeedsDisplay(self.frame)
                 } else if let photo = event.element {
@@ -86,31 +93,22 @@ class DEDevExcusesView: ScreenSaverView {
                         .subscribeOn(CurrentThreadScheduler.instance)
                         .subscribe{ event in
                             if let error = event.error {
-                                self.excuse     = error.localizedDescription as NSString
-                                self.userName   = nil
-                                self.profileUrl = nil
-                            } else if let data = event.element {
-                                if let user = photo.user {
-                                    self.userName = user.name as NSString?
-                                    
-                                    if let links = user.links {
-                                        self.profileUrl = links.html as NSString?
-                                    }
-                                }
-                                
-                                self.excuse = DEConfigs.excuses[DEConfigs.excuses.count.random()] as NSString
-                                
-                                let imageView: DEKenBurnsView = DEKenBurnsView(frame: self.frame)
-                                self.addSubview(imageView)
-                                
-                                imageView.image = NSImage(data: data)
-                                imageView.animate(duration: DEConfigs.refreshTimeInterval)
-                                
-                                if let oldImageView = self.imageView {
-                                    oldImageView.removeFromSuperview()
-                                }
-                                
-                                self.imageView = imageView
+                                self.update(
+                                    excuse    : error.localizedDescription,
+                                    background: nil,
+                                    userName  : nil,
+                                    profileUrl: nil
+                                )
+                            } else if let data       = event.element,
+                                      let user       = photo.user,
+                                      let userName   = user.name,
+                                      let links      = user.links,
+                                      let profileUrl = links.html {
+                                self.update(
+                                    excuse    : DEConfigs.excuses[DEConfigs.excuses.count.random()],
+                                    background: data,
+                                    userName  : userName,
+                                    profileUrl: profileUrl)
                             }
                             
                             self.setNeedsDisplay(self.frame)
@@ -121,40 +119,99 @@ class DEDevExcusesView: ScreenSaverView {
             .disposed(by: self.disposeBag)
     }
     
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        
-        if let excuse = self.excuse, let constants = self.constants, let font = constants.excuseFont {
-            let lineHeight = font.lineHeight
-            
-            excuse.draw(
-                font  : font,
-                drawIn: NSRect(x: self.frame.origin.x, y: CGFloat((Int(self.frame.size.height) - Int(lineHeight) * 4) / 2), width: self.frame.size.width, height: CGFloat(lineHeight) * 3),
-                style : constants.excuseStyle,
-                shadow: constants.excuseShadow
-            )
+    private func update(excuse: String, background: Data?, userName: String?, profileUrl: String?) {
+        if let background = background {
+            self.updateImageView(data: background)
         }
         
-        if let constants = self.constants, let font = constants.creditFont {
-            let lineHeight = font.lineHeight
+        if let userName = userName {
+            let userNameView: NSTextField = self.updateTextField(
+                string   : DEConfigs.Credit.userNamePrefix + userName,
+                alignment: self.constants.userNameStyle.alignment,
+                font     : self.constants.creditFont,
+                shadow   : self.constants.creditShadow,
+                frame    : NSRect(
+                    x     : CGFloat(Int(self.frame.origin.x) + DEConfigs.textMargin),
+                    y     : self.frame.origin.y,
+                    width : CGFloat(Int(self.frame.size.width) - DEConfigs.textMargin * 2),
+                    height: CGFloat(self.constants.creditLineHeight) * 1.5))
             
-            if let userName = self.userName {
-                ((DEConfigs.Credit.userNamePrefix + String(userName)) as NSString).draw(
-                    font  : font,
-                    drawIn: NSRect(x: CGFloat(Int(self.frame.origin.x) + DEConfigs.textMargin), y: self.frame.origin.y, width: CGFloat(Int(self.frame.size.width) - DEConfigs.textMargin * 2), height: CGFloat(lineHeight) * 1.5),
-                    style : constants.userNameStyle,
-                    shadow: constants.creditShadow
-                )
+            if let oldUserNameView = self.userNameView {
+                oldUserNameView.removeFromSuperview()
             }
             
-            if let profileUrl = self.profileUrl {
-                ((String(profileUrl) + DEConfigs.Credit.profileUrlSuffix) as NSString).draw(
-                    font  : font,
-                    drawIn: NSRect(x: CGFloat(Int(self.frame.origin.x) + DEConfigs.textMargin), y: self.frame.origin.y, width: CGFloat(Int(self.frame.size.width) - DEConfigs.textMargin * 2), height: CGFloat(lineHeight) * 1.5),
-                    style : constants.profileUrlStyle,
-                    shadow: constants.creditShadow
-                )
-            }
+            self.userNameView = userNameView
         }
+        
+        if let profileUrl = profileUrl {
+            let profileUrlView: NSTextField = self.updateTextField(
+                string   : profileUrl + DEConfigs.Credit.profileUrlSuffix,
+                alignment: self.constants.profileUrlStyle.alignment,
+                font     : self.constants.creditFont,
+                shadow   : self.constants.creditShadow,
+                frame    : NSRect(
+                    x     : CGFloat(Int(self.frame.origin.x) + DEConfigs.textMargin),
+                    y     : self.frame.origin.y,
+                    width : CGFloat(Int(self.frame.size.width) - DEConfigs.textMargin * 2),
+                    height: CGFloat(self.constants.creditLineHeight) * 1.5))
+            
+            if let oldProfileUrlView = self.profileUrlView {
+                oldProfileUrlView.removeFromSuperview()
+            }
+            
+            self.profileUrlView = profileUrlView
+        }
+        
+        let excuseView: NSTextField = self.updateTextField(
+            string   : excuse,
+            alignment: self.constants.excuseStyle.alignment,
+            font     : self.constants.excuseFont,
+            shadow   : self.constants.excuseShadow,
+            frame    : NSRect(
+                x     : self.frame.origin.x,
+                y     : CGFloat((Int(self.frame.size.height) - Int(self.constants.excuseLineHeight) * 4) / 2),
+                width : self.frame.size.width,
+                height: CGFloat(self.constants.excuseLineHeight) * 3))
+        
+        if let oldExcuseView = self.excuseView {
+            oldExcuseView.removeFromSuperview()
+        }
+        
+        self.excuseView = excuseView
+    }
+    
+    private func updateImageView(data: Data) {
+        let imageView: DEKenBurnsView = DEKenBurnsView(frame: self.frame)
+        self.addSubview(imageView)
+        
+        imageView.animate(
+            image   : NSImage(data: data),
+            alpha   : DEConfigs.Image.alpha,
+            duration: DEConfigs.refreshTimeInterval)
+        
+        if let oldImageView = self.imageView {
+            oldImageView.removeFromSuperview()
+        }
+        
+        self.imageView = imageView
+    }
+    
+    private func updateTextField(string: String, alignment: NSTextAlignment, font: NSFont, shadow: NSShadow, frame: NSRect) -> NSTextField {
+        let textField: NSTextField = NSTextField(frame: frame)
+        
+        textField.wantsLayer      = true
+        textField.drawsBackground = false
+        textField.backgroundColor = NSColor.clear
+        textField.textColor       = NSColor.white
+        textField.isBezeled       = false
+        textField.isEditable      = false
+        textField.alignment       = alignment
+        textField.font            = font
+        textField.stringValue     = string
+        textField.shadow          = shadow
+        
+        self.addSubview(textField)
+        
+        return textField
     }
 }

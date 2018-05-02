@@ -1,7 +1,9 @@
 import Cocoa
 
 final class DEKenBurnsView: NSImageView {
-    func animate(duration: TimeInterval) {
+    func animate(image: NSImage?, alpha: CGFloat, duration: TimeInterval) {
+        self.image = image
+        
         if let image = self.image {
             let width    : Double = Double(image.size.width)
             let height   : Double = Double(image.size.height)
@@ -28,10 +30,11 @@ final class DEKenBurnsView: NSImageView {
             
             let layer = CALayer()
             layer.add(scaleAnimation, forKey: scaleAnimation.keyPath)
-            layer.add(xAnimation, forKey: xAnimation.keyPath)
-            layer.add(yAnimation, forKey: yAnimation.keyPath)
+            layer.add(xAnimation,     forKey: xAnimation.keyPath)
+            layer.add(yAnimation,     forKey: yAnimation.keyPath)
             
-            self.layer = layer
+            self.layer      = layer
+            self.alphaValue = alpha
         }
     }
     
