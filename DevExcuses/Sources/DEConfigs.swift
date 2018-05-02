@@ -10,7 +10,7 @@ struct DEConfigs {
         
         struct Shadow {
             static let offset: CGFloat = 0
-            static let radius: CGFloat = 10
+            static let radius: CGFloat = 12
         }
     }
     
@@ -23,7 +23,7 @@ struct DEConfigs {
         
         struct Shadow {
             static let offset: CGFloat = 0
-            static let radius: CGFloat = 5
+            static let radius: CGFloat = 6
         }
         
         static let userNamePrefix  : String = "Unsplash > "
@@ -77,7 +77,7 @@ struct DEConfigs {
     }
     
     static let refreshTimeInterval: Double = 15.0
-    static let textMargin         : Int    = 16
+    static let textMargin         : Int    = 8
     
     static let excuses: [String] = [
         "I thought you signed off on that.",
