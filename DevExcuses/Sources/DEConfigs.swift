@@ -37,6 +37,8 @@ struct DEConfigs {
             "nature",
             "landscape",
             "water",
+            "sea",
+            "forest",
             "outdoor",
             "indoor",
             "interior",

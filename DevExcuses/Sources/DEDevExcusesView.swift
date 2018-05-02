@@ -57,7 +57,7 @@ class DEDevExcusesView: ScreenSaverView {
     }
     
     override func startAnimation() {
-        if !self.process.isRunning {
+        if !self.isPreview && !self.process.isRunning {
             self.process.launch()
         }
         
@@ -65,7 +65,7 @@ class DEDevExcusesView: ScreenSaverView {
     }
     
     override func stopAnimation() {
-        if self.process.isRunning {
+        if !self.isPreview && self.process.isRunning {
             self.process.terminate()
         }
         
