@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		E1E7CB2762EDB9E72C389550 /* libPods-devexcuses.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAB50A2F0A56B20D37C93A0 /* libPods-devexcuses.a */; };
 		E70963312081BDD8006B381C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70963302081BDD8006B381C /* Extensions.swift */; };
-		E70963332081BE93006B381C /* DEConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70963322081BE93006B381C /* DEConfigs.swift */; };
+		E70963332081BE93006B381C /* DEConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70963322081BE93006B381C /* DEConfigurations.swift */; };
 		E71262FC2080FF78006D94DA /* DEUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FB2080FF78006D94DA /* DEUser.swift */; };
 		E71262FE20810014006D94DA /* DEUserLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FD20810014006D94DA /* DEUserLinks.swift */; };
 		E7126300208100F3006D94DA /* DEPhotoUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FF208100F3006D94DA /* DEPhotoUrls.swift */; };
@@ -18,6 +18,7 @@
 		E73C70162099B72D0086AADC /* DEKenBurnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73C70152099B72D0086AADC /* DEKenBurnsView.swift */; };
 		E744BD00209AF4D6001B8597 /* ConfigSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = E744BCFF209AF4D6001B8597 /* ConfigSheet.xib */; };
 		E744BD03209AF6BA001B8597 /* DEConfigSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E744BD02209AF6BA001B8597 /* DEConfigSheetController.swift */; };
+		E7C981DB209B3D9700459F44 /* DEConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C981DA209B3D9700459F44 /* DEConfigs.swift */; };
 		E7CDCC7A2080F56100A553DF /* DEDevExcusesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CDCC792080F56100A553DF /* DEDevExcusesView.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,7 +28,7 @@
 		A58DB4D36B5F52A24E6ED461 /* Pods-devexcuses.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devexcuses.debug.xcconfig"; path = "Pods/Target Support Files/Pods-devexcuses/Pods-devexcuses.debug.xcconfig"; sourceTree = "<group>"; };
 		ADAB50A2F0A56B20D37C93A0 /* libPods-devexcuses.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-devexcuses.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70963302081BDD8006B381C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		E70963322081BE93006B381C /* DEConfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEConfigs.swift; sourceTree = "<group>"; };
+		E70963322081BE93006B381C /* DEConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEConfigurations.swift; sourceTree = "<group>"; };
 		E71262FB2080FF78006D94DA /* DEUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEUser.swift; sourceTree = "<group>"; };
 		E71262FD20810014006D94DA /* DEUserLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEUserLinks.swift; sourceTree = "<group>"; };
 		E71262FF208100F3006D94DA /* DEPhotoUrls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEPhotoUrls.swift; sourceTree = "<group>"; };
@@ -37,6 +38,7 @@
 		E744BCFF209AF4D6001B8597 /* ConfigSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigSheet.xib; sourceTree = "<group>"; };
 		E744BD02209AF6BA001B8597 /* DEConfigSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEConfigSheetController.swift; sourceTree = "<group>"; };
 		E77A61982081F06800F8E1B7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E7C981DA209B3D9700459F44 /* DEConfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEConfigs.swift; sourceTree = "<group>"; };
 		E7CDCC6C2080F42200A553DF /* Developers Excuses.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Developers Excuses.saver"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CDCC732080F42200A553DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7CDCC792080F56100A553DF /* DEDevExcusesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEDevExcusesView.swift; sourceTree = "<group>"; };
@@ -78,7 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				E744BCFF209AF4D6001B8597 /* ConfigSheet.xib */,
-				E70963322081BE93006B381C /* DEConfigs.swift */,
+				E7C981DA209B3D9700459F44 /* DEConfigs.swift */,
+				E70963322081BE93006B381C /* DEConfigurations.swift */,
 				E744BD02209AF6BA001B8597 /* DEConfigSheetController.swift */,
 			);
 			path = Config;
@@ -238,12 +241,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E71262FC2080FF78006D94DA /* DEUser.swift in Sources */,
-				E70963332081BE93006B381C /* DEConfigs.swift in Sources */,
+				E70963332081BE93006B381C /* DEConfigurations.swift in Sources */,
 				E7CDCC7A2080F56100A553DF /* DEDevExcusesView.swift in Sources */,
 				E71263022081016D006D94DA /* DEPhoto.swift in Sources */,
 				E744BD03209AF6BA001B8597 /* DEConfigSheetController.swift in Sources */,
 				E712630420810241006D94DA /* DEClient.swift in Sources */,
 				E7126300208100F3006D94DA /* DEPhotoUrls.swift in Sources */,
+				E7C981DB209B3D9700459F44 /* DEConfigs.swift in Sources */,
 				E71262FE20810014006D94DA /* DEUserLinks.swift in Sources */,
 				E70963312081BDD8006B381C /* Extensions.swift in Sources */,
 				E73C70162099B72D0086AADC /* DEKenBurnsView.swift in Sources */,

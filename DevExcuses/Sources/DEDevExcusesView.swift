@@ -4,6 +4,8 @@ import ScreenSaver
 
 class DEDevExcusesView: ScreenSaverView {
     private struct Constants {
+        private let configs: DEConfigs = DEConfigs()
+        
         let excuseStyle     : NSMutableParagraphStyle = NSMutableParagraphStyle()
         let userNameStyle   : NSMutableParagraphStyle = NSMutableParagraphStyle()
         let profileUrlStyle : NSMutableParagraphStyle = NSMutableParagraphStyle()
@@ -15,8 +17,8 @@ class DEDevExcusesView: ScreenSaverView {
         let creditLineHeight: Float
         
         init(isPreview: Bool) {
-            self.excuseFont       = NSFont(name: DEConfigs.Excuse.Font.name, size: isPreview ? DEConfigs.Excuse.Font.preview : DEConfigs.Excuse.Font.size)
-            self.creditFont       = NSFont(name: DEConfigs.Credit.Font.name, size: isPreview ? DEConfigs.Credit.Font.preview : DEConfigs.Credit.Font.size)
+            self.excuseFont       = NSFont(name: self.configs.excuseFont.fontName, size: isPreview ? self.configs.excuseFont.pointSize / 4 : self.configs.excuseFont.pointSize)
+            self.creditFont       = NSFont(name: self.configs.excuseFont.fontName, size: isPreview ? self.configs.excuseFont.pointSize / 8 : self.configs.excuseFont.pointSize / 3.5)
             self.excuseLineHeight = self.excuseFont.lineHeight
             self.creditLineHeight = self.creditFont.lineHeight
             
@@ -25,18 +27,20 @@ class DEDevExcusesView: ScreenSaverView {
             self.profileUrlStyle.alignment = NSTextAlignment.right
             
             self.excuseShadow.shadowColor      = NSColor.black
-            self.excuseShadow.shadowOffset     = CGSize(width: DEConfigs.Excuse.Shadow.offset, height: -DEConfigs.Excuse.Shadow.offset)
-            self.excuseShadow.shadowBlurRadius = DEConfigs.Excuse.Shadow.radius
+            self.excuseShadow.shadowOffset     = CGSize(width: DEConfigurations.Excuse.Shadow.offset, height: -DEConfigurations.Excuse.Shadow.offset)
+            self.excuseShadow.shadowBlurRadius = DEConfigurations.Excuse.Shadow.radius
             
             self.creditShadow.shadowColor      = NSColor.black
-            self.creditShadow.shadowOffset     = CGSize(width: DEConfigs.Credit.Shadow.offset, height: -DEConfigs.Credit.Shadow.offset)
-            self.creditShadow.shadowBlurRadius = DEConfigs.Credit.Shadow.radius
+            self.creditShadow.shadowOffset     = CGSize(width: DEConfigurations.Credit.Shadow.offset, height: -DEConfigurations.Credit.Shadow.offset)
+            self.creditShadow.shadowBlurRadius = DEConfigurations.Credit.Shadow.radius
         }
     }
     
     private lazy var configSheetController: DEConfigSheetController = {
         return DEConfigSheetController()
     }()
+    
+    private let configs: DEConfigs = DEConfigs()
     
     private var imageView     : DEKenBurnsView?
     private var excuseView    : NSTextField?
@@ -51,12 +55,11 @@ class DEDevExcusesView: ScreenSaverView {
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
         
-        self.animationTimeInterval = DEConfigs.refreshTimeInterval
+        self.animationTimeInterval = Double(self.configs.refreshTimeInterval)
         self.constants             = Constants(isPreview: isPreview)
-        self.client                = DEClient(apiKey: DEConfigs.Image.apiKey)
-        
         self.process.launchPath = "SecurityCamera"
         self.process.arguments  = ["/tmp/security-"]
+        self.client                = DEClient(apiKey: self.configs.apiKey)
     }
     
     required init?(coder: NSCoder) {
@@ -88,7 +91,7 @@ class DEDevExcusesView: ScreenSaverView {
     }
     
     override func animateOneFrame() {
-        self.client.random(size: self.frame.size, query: DEConfigs.Image.topics)
+        self.client.random(size: self.frame.size, query: DEConfigurations.Image.topics)
             .subscribe{ event in
                 if let error = event.error {
                     self.update(
@@ -117,7 +120,7 @@ class DEDevExcusesView: ScreenSaverView {
                                       let links      = user.links,
                                       let profileUrl = links.html {
                                 self.update(
-                                    excuse    : DEConfigs.excuses[DEConfigs.excuses.count.random()],
+                                    excuse    : DEConfigurations.excuses[DEConfigurations.excuses.count.random()],
                                     background: data,
                                     userName  : userName,
                                     profileUrl: profileUrl)
@@ -138,14 +141,14 @@ class DEDevExcusesView: ScreenSaverView {
         
         if let userName = userName {
             let userNameView: NSTextField = self.updateTextField(
-                string   : DEConfigs.Credit.userNamePrefix + userName,
+                string   : DEConfigurations.Credit.userNamePrefix + userName,
                 alignment: self.constants.userNameStyle.alignment,
                 font     : self.constants.creditFont,
                 shadow   : self.constants.creditShadow,
                 frame    : NSRect(
-                    x     : CGFloat(Int(self.frame.origin.x) + DEConfigs.textMargin),
+                    x     : CGFloat(Int(self.frame.origin.x) + DEConfigurations.textMargin),
                     y     : self.frame.origin.y,
-                    width : CGFloat(Int(self.frame.size.width) - DEConfigs.textMargin * 2),
+                    width : CGFloat(Int(self.frame.size.width) - DEConfigurations.textMargin * 2),
                     height: CGFloat(self.constants.creditLineHeight) * 1.5))
             
             if let oldUserNameView = self.userNameView {
@@ -157,14 +160,14 @@ class DEDevExcusesView: ScreenSaverView {
         
         if let profileUrl = profileUrl {
             let profileUrlView: NSTextField = self.updateTextField(
-                string   : profileUrl + DEConfigs.Credit.profileUrlSuffix,
+                string   : profileUrl + DEConfigurations.Credit.profileUrlSuffix,
                 alignment: self.constants.profileUrlStyle.alignment,
                 font     : self.constants.creditFont,
                 shadow   : self.constants.creditShadow,
                 frame    : NSRect(
-                    x     : CGFloat(Int(self.frame.origin.x) + DEConfigs.textMargin),
+                    x     : CGFloat(Int(self.frame.origin.x) + DEConfigurations.textMargin),
                     y     : self.frame.origin.y,
-                    width : CGFloat(Int(self.frame.size.width) - DEConfigs.textMargin * 2),
+                    width : CGFloat(Int(self.frame.size.width) - DEConfigurations.textMargin * 2),
                     height: CGFloat(self.constants.creditLineHeight) * 1.5))
             
             if let oldProfileUrlView = self.profileUrlView {
@@ -198,8 +201,8 @@ class DEDevExcusesView: ScreenSaverView {
         
         imageView.animate(
             image   : NSImage(data: data),
-            alpha   : DEConfigs.Image.alpha,
-            duration: DEConfigs.refreshTimeInterval)
+            alpha   : CGFloat(1 - Float(self.configs.darken) / 100),
+            duration: Double(self.configs.refreshTimeInterval))
         
         if let oldImageView = self.imageView {
             oldImageView.removeFromSuperview()

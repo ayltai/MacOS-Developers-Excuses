@@ -17,31 +17,6 @@ extension NSFont {
     }
 }
 
-extension NSImage {
-    func draw(at: NSPoint) {
-        self.draw(
-            at       : at,
-            from     : NSZeroRect,
-            operation: .sourceOver,
-            fraction : DEConfigs.Image.alpha
-        )
-    }
-}
-
-extension NSString {
-    func draw(font: NSFont, drawIn: NSRect, style: NSParagraphStyle, shadow: NSShadow) {
-        self.draw(
-            in            : drawIn,
-            withAttributes: [
-                NSAttributedStringKey.foregroundColor: NSColor.white,
-                NSAttributedStringKey.font           : font,
-                NSAttributedStringKey.paragraphStyle : style,
-                NSAttributedStringKey.shadow         : shadow
-            ]
-        )
-    }
-}
-
 extension Int {
     func random() -> Int {
         return Int(arc4random_uniform(UInt32(self)))
