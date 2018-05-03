@@ -34,6 +34,10 @@ class DEDevExcusesView: ScreenSaverView {
         }
     }
     
+    private lazy var configSheetController: DEConfigSheetController = {
+        return DEConfigSheetController()
+    }()
+    
     private var imageView     : DEKenBurnsView?
     private var excuseView    : NSTextField?
     private var userNameView  : NSTextField?
@@ -57,6 +61,14 @@ class DEDevExcusesView: ScreenSaverView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    override var hasConfigureSheet: Bool {
+        return true
+    }
+    
+    override var configureSheet: NSWindow! {
+        return self.configSheetController.window
     }
     
     override func startAnimation() {
