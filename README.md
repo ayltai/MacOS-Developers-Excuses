@@ -14,7 +14,7 @@ A macOS screen saver that shows a random [developer excuse](http://www.devexcuse
 * Automatically start recording video using the built-in FaceTime HD camera for security reasons
 
 ## Configurations
-![Configurations](Screenshots/configurations.jpg)
+![Configurations](Screenshots/configurations.png)
 
 ## Compatibility
 Developers Excuses screen saver requires OS X Yosemite or later.
