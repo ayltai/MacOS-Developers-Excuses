@@ -2,11 +2,11 @@ import Cocoa
 import RxSwift
 import ScreenSaver
 
-class DEDevExcusesView: ScreenSaverView {
-    private static let userNamePrefix  : String = "Unsplash > "
-    private static let profileUrlSuffix: String = "?utm_source=Developers%20Excuses&utm_medium=referral"
-    
-    private static let excuses: [String] = [
+class DevExcusesView: ScreenSaverView {
+    private static let userNamePrefix   = "Unsplash > "
+    private static let profileUrlSuffix = "?utm_source=Developers%20Excuses&utm_medium=referral"
+
+    private static let excuses = [
         "I thought you signed off on that.",
         "That feature was slated for phase two.",
         "That feature would be outside the scope.",
@@ -82,235 +82,258 @@ class DEDevExcusesView: ScreenSaverView {
         "That software should have been updated ages ago.",
         "Are you sure you want it to work that way?",
         "I'm pretty sure that works most of the time.",
-        "I was busy fixing more important issues."
+        "I was busy fixing more important issues.",
     ]
-    
+
     private static let duration  : TimeInterval = 15
     private static let textMargin: Int          = 8
-    
-    private lazy var configSheetController: DEConfigSheetController = {
-        return DEConfigSheetController()
+
+    private lazy var configSheetController: ConfigSheetController = {
+        return ConfigSheetController()
     }()
-    
-    private let configs: DEConfigs = DEConfigs()
-    
-    private let excuseStyle     : NSMutableParagraphStyle = NSMutableParagraphStyle()
-    private let userNameStyle   : NSMutableParagraphStyle = NSMutableParagraphStyle()
-    private let profileUrlStyle : NSMutableParagraphStyle = NSMutableParagraphStyle()
-    private let excuseShadow    : NSShadow                = NSShadow()
-    private let creditShadow    : NSShadow                = NSShadow()
-    
+
+    private let configs = Configs()
+
+    private let excuseStyle     = NSMutableParagraphStyle()
+    private let userNameStyle   = NSMutableParagraphStyle()
+    private let profileUrlStyle = NSMutableParagraphStyle()
+    private let excuseShadow    = NSShadow()
+    private let creditShadow    = NSShadow()
+
     private var excuseLineHeight: Float = 0
     private var creditLineHeight: Float = 0
     private var excuseFont      : NSFont?
     private var creditFont      : NSFont?
-    
-    private var imageView     : DEKenBurnsView?
+
+    private var imageView     : KenBurnsView?
     private var excuseView    : NSTextField?
     private var userNameView  : NSTextField?
     private var profileUrlView: NSTextField?
-    
-    private var client    : DEClient?
-    private var process   : Process?
-    private var disposeBag: DisposeBag = DisposeBag()
-    
+
+    private var client : UnsplashClient?
+    private var process: Process?
+
+    private var disposeBag = DisposeBag()
+
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
-        
-        if let excuseFont: NSFont = NSFont(name: self.configs.fontName, size: isPreview ? CGFloat(self.configs.fontSize) / 3.75 : CGFloat(self.configs.fontSize)) {
+
+        if let excuseFont = NSFont(
+            name: self.configs.fontName,
+            size: isPreview
+                ? CGFloat(self.configs.fontSize) / 3.75
+                : CGFloat(self.configs.fontSize)) {
             self.excuseLineHeight = excuseFont.lineHeight
             self.excuseFont       = excuseFont
         }
-        
-        if let creditFont: NSFont = NSFont(name: self.configs.fontName, size: isPreview ? CGFloat(self.configs.fontSize) / 7.5 : CGFloat(self.configs.fontSize / 3.75)) {
+
+        if let creditFont = NSFont(
+            name: self.configs.fontName,
+            size: isPreview
+                ? CGFloat(self.configs.fontSize) / 7.5
+                : CGFloat(self.configs.fontSize / 3.75)) {
             self.creditLineHeight = creditFont.lineHeight
             self.creditFont       = creditFont
         }
-        
+
         self.excuseStyle.alignment     = NSTextAlignment.center
         self.userNameStyle.alignment   = NSTextAlignment.left
         self.profileUrlStyle.alignment = NSTextAlignment.right
-        
+
         self.excuseShadow.shadowColor      = NSColor.black
         self.excuseShadow.shadowBlurRadius = CGFloat(self.configs.fontSize / 4)
-        
+
         self.creditShadow.shadowColor      = NSColor.black
         self.creditShadow.shadowBlurRadius = CGFloat(self.configs.fontSize / 8)
-        
-        self.client                = DEClient(apiKey: self.configs.apiKey)
+
+        self.client                = UnsplashClient(apiKey: self.configs.apiKey)
         self.animationTimeInterval = Double(self.configs.duration)
-        
+
         if self.configs.videoEnabled && !isPreview {
-            let process: Process = Process()
+            let process = Process()
             process.launchPath = self.configs.cameraAppPath
             process.arguments  = [self.configs.videoSavePath + "/SecurityCamera-"]
-            
+
             self.process = process
         }
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override var hasConfigureSheet: Bool {
         return true
     }
-    
+
     override var configureSheet: NSWindow! {
         return self.configSheetController.window
     }
-    
+
     override func startAnimation() {
-        if let process: Process = self.process {
+        if let process = self.process {
             if !self.isPreview && !process.isRunning {
                 process.launch()
             }
         }
-        
+
         super.startAnimation()
     }
-    
+
     override func stopAnimation() {
         super.stopAnimation()
-        
-        if let process: Process = self.process {
+
+        if let process = self.process {
             if !self.isPreview && process.isRunning {
                 process.terminate()
             }
         }
     }
-    
+
     override func animateOneFrame() {
-        if let client: DEClient = self.client {
-            client.random(size: self.frame.size, query: self.configs.imageTopics)
-                .subscribe{ event in
-                    if let error: Error = event.error {
-                        self.update(
-                            excuse    : error.localizedDescription,
-                            background: nil,
-                            userName  : nil,
-                            profileUrl: nil
-                        )
-                        
-                        self.setNeedsDisplay(self.frame)
-                    } else if let photo: DEPhoto = event.element {
-                        photo.download()
-                            .observeOn(MainScheduler.instance)
-                            .subscribeOn(CurrentThreadScheduler.instance)
-                            .subscribe{ event in
-                                if let error: Error = event.error {
-                                    self.update(
-                                        excuse    : error.localizedDescription,
-                                        background: nil,
-                                        userName  : nil,
-                                        profileUrl: nil
-                                    )
-                                } else if let data      : Data        = event.element,
-                                          let user      : DEUser      = photo.user,
-                                          let userName  : String      = user.name,
-                                          let links     : DEUserLinks = user.links,
-                                          let profileUrl: String      = links.html {
-                                    self.update(
-                                        excuse    : DEDevExcusesView.excuses[DEDevExcusesView.excuses.count.random()],
-                                        background: data,
-                                        userName  : userName,
-                                        profileUrl: profileUrl)
-                                }
-                                
-                                self.setNeedsDisplay(self.frame)
-                            }
-                            .disposed(by: self.disposeBag)
-                    }
-                }
-                .disposed(by: self.disposeBag)
+        guard let client = self.client else {
+            return
         }
+
+        client.random(size: self.frame.size, query: self.configs.imageTopics)
+            .subscribe { event in
+                if let error = event.error {
+                    self.update(
+                        excuse: error.localizedDescription,
+                        background: nil,
+                        userName: nil,
+                        profileUrl: nil
+                    )
+
+                    self.setNeedsDisplay(self.frame)
+                } else if let photo = event.element {
+                    photo.download()
+                        .observeOn(MainScheduler.instance)
+                        .subscribeOn(CurrentThreadScheduler.instance)
+                        .subscribe { event in
+                            if let error = event.error {
+                                self.update(
+                                    excuse: error.localizedDescription,
+                                    background: nil,
+                                    userName: nil,
+                                    profileUrl: nil
+                                )
+                            } else if
+                                let data       = event.element,
+                                let user       = photo.user,
+                                let userName   = user.name,
+                                let links      = user.links,
+                                let profileUrl = links.html {
+                                self.update(
+                                    excuse: DevExcusesView.excuses[DevExcusesView.excuses.count.random()],
+                                    background: data,
+                                    userName: userName,
+                                    profileUrl: profileUrl)
+                            }
+
+                            self.setNeedsDisplay(self.frame)
+                        }
+                        .disposed(by: self.disposeBag)
+                }
+            }
+            .disposed(by: self.disposeBag)
     }
-    
-    private func update(excuse: String, background: Data?, userName: String?, profileUrl: String?) {
+
+    private func update(
+        excuse    : String,
+        background: Data?,
+        userName  : String?,
+        profileUrl: String?) {
         if let background = background {
             self.updateImageView(data: background)
         }
-        
-        if let userName: String = userName,
-           let font    : NSFont = self.creditFont {
-            let userNameView: NSTextField = self.updateTextField(
-                string   : DEDevExcusesView.userNamePrefix + userName,
+
+        if
+            let userName     = userName,
+            let font         = self.creditFont {
+            let userNameView = self.updateTextField(
+                string   : DevExcusesView.userNamePrefix + userName,
                 alignment: self.userNameStyle.alignment,
                 font     : font,
                 shadow   : self.creditShadow,
-                frame    : NSRect(
-                    x     : CGFloat(Int(self.frame.origin.x) + DEDevExcusesView.textMargin),
+                frame: NSRect(
+                    x     : CGFloat(Int(self.frame.origin.x) + DevExcusesView.textMargin),
                     y     : self.frame.origin.y,
-                    width : CGFloat(Int(self.frame.size.width) - DEDevExcusesView.textMargin * 2),
+                    width : CGFloat(Int(self.frame.size.width) - DevExcusesView.textMargin * 2),
                     height: CGFloat(self.creditLineHeight) * 1.5))
-            
+
             if let oldUserNameView = self.userNameView {
                 oldUserNameView.removeFromSuperview()
             }
-            
+
             self.userNameView = userNameView
         }
-        
-        if let profileUrl: String = profileUrl,
-           let font      : NSFont = self.creditFont{
-            let profileUrlView: NSTextField = self.updateTextField(
-                string   : profileUrl + DEDevExcusesView.profileUrlSuffix,
+
+        if
+            let profileUrl = profileUrl,
+            let font       = self.creditFont {
+            let profileUrlView = self.updateTextField(
+                string   : profileUrl + DevExcusesView.profileUrlSuffix,
                 alignment: self.profileUrlStyle.alignment,
                 font     : font,
                 shadow   : self.creditShadow,
-                frame    : NSRect(
-                    x     : CGFloat(Int(self.frame.origin.x) + DEDevExcusesView.textMargin),
+                frame: NSRect(
+                    x     : CGFloat(Int(self.frame.origin.x) + DevExcusesView.textMargin),
                     y     : self.frame.origin.y,
-                    width : CGFloat(Int(self.frame.size.width) - DEDevExcusesView.textMargin * 2),
+                    width : CGFloat(Int(self.frame.size.width) - DevExcusesView.textMargin * 2),
                     height: CGFloat(self.creditLineHeight) * 1.5))
-            
+
             if let oldProfileUrlView = self.profileUrlView {
                 oldProfileUrlView.removeFromSuperview()
             }
-            
+
             self.profileUrlView = profileUrlView
         }
-        
-        if let font: NSFont = self.excuseFont {
-            let excuseView: NSTextField = self.updateTextField(
+
+        if let font = self.excuseFont {
+            let excuseView = self.updateTextField(
                 string   : excuse,
                 alignment: self.excuseStyle.alignment,
                 font     : font,
                 shadow   : self.excuseShadow,
-                frame    : NSRect(
+                frame: NSRect(
                     x     : self.frame.origin.x,
                     y     : CGFloat((Int(self.frame.size.height) - Int(self.excuseLineHeight) * 4) / 2),
                     width : self.frame.size.width,
                     height: CGFloat(self.excuseLineHeight) * 3))
-            
+
             if let oldExcuseView = self.excuseView {
                 oldExcuseView.removeFromSuperview()
             }
-            
+
             self.excuseView = excuseView
         }
     }
-    
+
     private func updateImageView(data: Data) {
-        let imageView: DEKenBurnsView = DEKenBurnsView(frame: self.frame)
+        let imageView = KenBurnsView(frame: self.frame)
         self.addSubview(imageView)
-        
+
         imageView.animate(
             image   : NSImage(data: data),
             alpha   : CGFloat(1 - Float(self.configs.darken) / 100),
-            duration: self.isPreview ? DEDevExcusesView.duration : Double(self.configs.duration))
-        
+            duration: self.isPreview ? DevExcusesView.duration : Double(self.configs.duration))
+
         if let oldImageView = self.imageView {
             oldImageView.removeFromSuperview()
         }
-        
+
         self.imageView = imageView
     }
-    
-    private func updateTextField(string: String, alignment: NSTextAlignment, font: NSFont, shadow: NSShadow, frame: NSRect) -> NSTextField {
-        let textField: NSTextField = NSTextField(frame: frame)
-        
+
+    private func updateTextField(
+        string   : String,
+        alignment: NSTextAlignment,
+        font     : NSFont,
+        shadow   : NSShadow,
+        frame    : NSRect) -> NSTextField {
+        let textField = NSTextField(frame: frame)
+
         textField.wantsLayer      = true
         textField.drawsBackground = false
         textField.backgroundColor = NSColor.clear
@@ -321,9 +344,9 @@ class DEDevExcusesView: ScreenSaverView {
         textField.font            = font
         textField.stringValue     = string
         textField.shadow          = shadow
-        
+
         self.addSubview(textField)
-        
+
         return textField
     }
 }

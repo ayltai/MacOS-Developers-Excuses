@@ -1,8 +1,8 @@
 import Unbox
 
-struct DEUserLinks: Unboxable {
+struct UserLinks: Unboxable {
     let html: String?
-    
+
     init(unboxer: Unboxer) throws {
         self.html = unboxer.unbox(key: "html")
     }

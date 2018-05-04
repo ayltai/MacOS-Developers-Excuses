@@ -9,16 +9,17 @@
 /* Begin PBXBuildFile section */
 		E1E7CB2762EDB9E72C389550 /* libPods-devexcuses.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAB50A2F0A56B20D37C93A0 /* libPods-devexcuses.a */; };
 		E70963312081BDD8006B381C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70963302081BDD8006B381C /* Extensions.swift */; };
-		E71262FC2080FF78006D94DA /* DEUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FB2080FF78006D94DA /* DEUser.swift */; };
-		E71262FE20810014006D94DA /* DEUserLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FD20810014006D94DA /* DEUserLinks.swift */; };
-		E7126300208100F3006D94DA /* DEPhotoUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FF208100F3006D94DA /* DEPhotoUrls.swift */; };
-		E71263022081016D006D94DA /* DEPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71263012081016D006D94DA /* DEPhoto.swift */; };
-		E712630420810241006D94DA /* DEClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712630320810241006D94DA /* DEClient.swift */; };
-		E73C70162099B72D0086AADC /* DEKenBurnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73C70152099B72D0086AADC /* DEKenBurnsView.swift */; };
+		E71262FC2080FF78006D94DA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FB2080FF78006D94DA /* User.swift */; };
+		E71262FE20810014006D94DA /* UserLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FD20810014006D94DA /* UserLinks.swift */; };
+		E7126300208100F3006D94DA /* PhotoUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FF208100F3006D94DA /* PhotoUrls.swift */; };
+		E71263022081016D006D94DA /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71263012081016D006D94DA /* Photo.swift */; };
+		E712630420810241006D94DA /* UnsplashClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712630320810241006D94DA /* UnsplashClient.swift */; };
+		E73C70162099B72D0086AADC /* KenBurnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73C70152099B72D0086AADC /* KenBurnsView.swift */; };
 		E744BD00209AF4D6001B8597 /* ConfigSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = E744BCFF209AF4D6001B8597 /* ConfigSheet.xib */; };
-		E744BD03209AF6BA001B8597 /* DEConfigSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E744BD02209AF6BA001B8597 /* DEConfigSheetController.swift */; };
-		E7C981DB209B3D9700459F44 /* DEConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C981DA209B3D9700459F44 /* DEConfigs.swift */; };
-		E7CDCC7A2080F56100A553DF /* DEDevExcusesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CDCC792080F56100A553DF /* DEDevExcusesView.swift */; };
+		E744BD03209AF6BA001B8597 /* ConfigSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E744BD02209AF6BA001B8597 /* ConfigSheetController.swift */; };
+		E75B4B19209CB08000A44D10 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E75B4B18209CB08000A44D10 /* .swiftlint.yml */; };
+		E7C981DB209B3D9700459F44 /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C981DA209B3D9700459F44 /* Configs.swift */; };
+		E7CDCC7A2080F56100A553DF /* DevExcusesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CDCC792080F56100A553DF /* DevExcusesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,19 +28,21 @@
 		A58DB4D36B5F52A24E6ED461 /* Pods-devexcuses.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devexcuses.debug.xcconfig"; path = "Pods/Target Support Files/Pods-devexcuses/Pods-devexcuses.debug.xcconfig"; sourceTree = "<group>"; };
 		ADAB50A2F0A56B20D37C93A0 /* libPods-devexcuses.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-devexcuses.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70963302081BDD8006B381C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		E71262FB2080FF78006D94DA /* DEUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEUser.swift; sourceTree = "<group>"; };
-		E71262FD20810014006D94DA /* DEUserLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEUserLinks.swift; sourceTree = "<group>"; };
-		E71262FF208100F3006D94DA /* DEPhotoUrls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEPhotoUrls.swift; sourceTree = "<group>"; };
-		E71263012081016D006D94DA /* DEPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEPhoto.swift; sourceTree = "<group>"; };
-		E712630320810241006D94DA /* DEClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEClient.swift; sourceTree = "<group>"; };
-		E73C70152099B72D0086AADC /* DEKenBurnsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEKenBurnsView.swift; sourceTree = "<group>"; };
+		E71262FB2080FF78006D94DA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E71262FD20810014006D94DA /* UserLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLinks.swift; sourceTree = "<group>"; };
+		E71262FF208100F3006D94DA /* PhotoUrls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoUrls.swift; sourceTree = "<group>"; };
+		E71263012081016D006D94DA /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		E712630320810241006D94DA /* UnsplashClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashClient.swift; sourceTree = "<group>"; };
+		E73C70152099B72D0086AADC /* KenBurnsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KenBurnsView.swift; sourceTree = "<group>"; };
 		E744BCFF209AF4D6001B8597 /* ConfigSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigSheet.xib; sourceTree = "<group>"; };
-		E744BD02209AF6BA001B8597 /* DEConfigSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEConfigSheetController.swift; sourceTree = "<group>"; };
+		E744BD02209AF6BA001B8597 /* ConfigSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSheetController.swift; sourceTree = "<group>"; };
+		E75B4B15209CA74500A44D10 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		E75B4B18209CB08000A44D10 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		E77A61982081F06800F8E1B7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		E7C981DA209B3D9700459F44 /* DEConfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEConfigs.swift; sourceTree = "<group>"; };
+		E7C981DA209B3D9700459F44 /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		E7CDCC6C2080F42200A553DF /* Developers Excuses.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Developers Excuses.saver"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CDCC732080F42200A553DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E7CDCC792080F56100A553DF /* DEDevExcusesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DEDevExcusesView.swift; sourceTree = "<group>"; };
+		E7CDCC792080F56100A553DF /* DevExcusesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevExcusesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,10 +69,10 @@
 		E71262FA2080FF59006D94DA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E71262FB2080FF78006D94DA /* DEUser.swift */,
-				E71262FD20810014006D94DA /* DEUserLinks.swift */,
-				E71262FF208100F3006D94DA /* DEPhotoUrls.swift */,
-				E71263012081016D006D94DA /* DEPhoto.swift */,
+				E71262FB2080FF78006D94DA /* User.swift */,
+				E71262FD20810014006D94DA /* UserLinks.swift */,
+				E71262FF208100F3006D94DA /* PhotoUrls.swift */,
+				E71263012081016D006D94DA /* Photo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -78,8 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				E744BCFF209AF4D6001B8597 /* ConfigSheet.xib */,
-				E7C981DA209B3D9700459F44 /* DEConfigs.swift */,
-				E744BD02209AF6BA001B8597 /* DEConfigSheetController.swift */,
+				E7C981DA209B3D9700459F44 /* Configs.swift */,
+				E744BD02209AF6BA001B8597 /* ConfigSheetController.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -89,9 +92,9 @@
 			children = (
 				E744BD01209AF690001B8597 /* Config */,
 				E71262FA2080FF59006D94DA /* Models */,
-				E7CDCC792080F56100A553DF /* DEDevExcusesView.swift */,
-				E712630320810241006D94DA /* DEClient.swift */,
-				E73C70152099B72D0086AADC /* DEKenBurnsView.swift */,
+				E7CDCC792080F56100A553DF /* DevExcusesView.swift */,
+				E712630320810241006D94DA /* UnsplashClient.swift */,
+				E73C70152099B72D0086AADC /* KenBurnsView.swift */,
 				E70963302081BDD8006B381C /* Extensions.swift */,
 			);
 			path = Sources;
@@ -100,7 +103,9 @@
 		E7CDCC622080F42200A553DF = {
 			isa = PBXGroup;
 			children = (
+				E75B4B18209CB08000A44D10 /* .swiftlint.yml */,
 				E77A61982081F06800F8E1B7 /* README.md */,
+				E75B4B15209CA74500A44D10 /* Podfile */,
 				E7CDCC6E2080F42200A553DF /* DevExcuses */,
 				E7CDCC6D2080F42200A553DF /* Products */,
 				42F8B77797667FD49945E145 /* Pods */,
@@ -156,6 +161,7 @@
 				E7CDCC682080F42200A553DF /* Frameworks */,
 				E7CDCC692080F42200A553DF /* Headers */,
 				E7CDCC6A2080F42200A553DF /* Resources */,
+				E75B4B17209CA88400A44D10 /* Check Coding Style With SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -205,6 +211,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E75B4B19209CB08000A44D10 /* .swiftlint.yml in Resources */,
 				E744BD00209AF4D6001B8597 /* ConfigSheet.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,6 +237,20 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E75B4B17209CA88400A44D10 /* Check Coding Style With SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Coding Style With SwiftLint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -237,16 +258,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E71262FC2080FF78006D94DA /* DEUser.swift in Sources */,
-				E7CDCC7A2080F56100A553DF /* DEDevExcusesView.swift in Sources */,
-				E71263022081016D006D94DA /* DEPhoto.swift in Sources */,
-				E744BD03209AF6BA001B8597 /* DEConfigSheetController.swift in Sources */,
-				E712630420810241006D94DA /* DEClient.swift in Sources */,
-				E7126300208100F3006D94DA /* DEPhotoUrls.swift in Sources */,
-				E7C981DB209B3D9700459F44 /* DEConfigs.swift in Sources */,
-				E71262FE20810014006D94DA /* DEUserLinks.swift in Sources */,
+				E71262FC2080FF78006D94DA /* User.swift in Sources */,
+				E7CDCC7A2080F56100A553DF /* DevExcusesView.swift in Sources */,
+				E71263022081016D006D94DA /* Photo.swift in Sources */,
+				E744BD03209AF6BA001B8597 /* ConfigSheetController.swift in Sources */,
+				E712630420810241006D94DA /* UnsplashClient.swift in Sources */,
+				E7126300208100F3006D94DA /* PhotoUrls.swift in Sources */,
+				E7C981DB209B3D9700459F44 /* Configs.swift in Sources */,
+				E71262FE20810014006D94DA /* UserLinks.swift in Sources */,
 				E70963312081BDD8006B381C /* Extensions.swift in Sources */,
-				E73C70162099B72D0086AADC /* DEKenBurnsView.swift in Sources */,
+				E73C70162099B72D0086AADC /* KenBurnsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +392,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				IBC_MODULE = DevExcuses;
 				INFOPLIST_FILE = devexcuses/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -394,6 +416,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				IBC_MODULE = DevExcuses;
 				INFOPLIST_FILE = devexcuses/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = (

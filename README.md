@@ -1,6 +1,6 @@
 # Developers Excuses
 
-[![Release](https://img.shields.io/github/release/ayltai/MacOS-Developers-Excuses.svg?label=release&maxAge=1800)](Releases/1.0/screensaver.zip) [![macOS](https://img.shields.io/badge/macOS-10.10-blue.svg?style=flat&label=API&maxAge=300)](https://en.wikipedia.org/wiki/OS_X_Yosemite) [![License](https://img.shields.io/badge/License-apache%202.0-blue.svg?label=license&maxAge=1800)](https://github.com/ayltai/MacOS-Developers-Excuses/blob/master/LICENSE)
+[![Release](https://img.shields.io/github/release/ayltai/MacOS-Developers-Excuses.svg?label=release&maxAge=1800)](Releases/1.0/screensaver.zip) [![macOS](https://img.shields.io/badge/macOS-10.10-blue.svg?style=flat&label=macOS&maxAge=300)](https://en.wikipedia.org/wiki/OS_X_Yosemite) [![License](https://img.shields.io/badge/License-apache%202.0-blue.svg?label=license&maxAge=1800)](https://github.com/ayltai/MacOS-Developers-Excuses/blob/master/LICENSE)
 
 A macOS screen saver that shows a random [developer excuse](http://www.devexcuses.com) over a [beautiful photo background](https://unsplash.com). Made with ❤
 

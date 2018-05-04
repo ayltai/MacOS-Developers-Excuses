@@ -1,11 +1,11 @@
 import AppKit
 
-final class DEConfigSheetController: NSWindowController {
-    private let configs: DEConfigs = DEConfigs()
-    
+final class ConfigSheetController: NSWindowController {
+    private let configs = Configs()
+
     private var fontName: String?
     private var fontSize: Float?
-    
+
     @IBOutlet weak var apiKey         : NSTextField?
     @IBOutlet weak var darken         : NSSlider?
     @IBOutlet weak var maxZoom        : NSSlider?
@@ -17,32 +17,32 @@ final class DEConfigSheetController: NSWindowController {
     @IBOutlet weak var videoSavePicker: NSButton?
     @IBOutlet weak var videoSavePath  : NSTextField?
     @IBOutlet weak var imageTopics    : NSTextView?
-    
+
     override var windowNibName: NSNib.Name! {
         return NSNib.Name(rawValue: "ConfigSheet")
     }
-    
+
     override func windowDidLoad() {
         super.windowDidLoad()
-        
-        if let apiKey: NSTextField = self.apiKey {
+
+        if let apiKey = self.apiKey {
             apiKey.stringValue = self.configs.apiKey
         }
-        
-        if let darken: NSSlider = self.darken {
+
+        if let darken = self.darken {
             darken.integerValue = self.configs.darken
         }
-        
-        if let maxZoom: NSSlider = self.maxZoom {
+
+        if let maxZoom = self.maxZoom {
             maxZoom.integerValue = self.configs.maxZoom
         }
-        
+
         self.fontName = self.configs.fontName
         self.fontSize = self.configs.fontSize
-        
+
         self.displayFont(name: self.configs.fontName, size: self.configs.fontSize)
-        
-        if let duration: NSPopUpButton = self.duration {
+
+        if let duration = self.duration {
             if self.configs.duration == 15 {
                 duration.selectItem(at: 0)
             } else if self.configs.duration == 30 {
@@ -57,66 +57,79 @@ final class DEConfigSheetController: NSWindowController {
                 duration.selectItem(at: 0)
             }
         }
-        
-        if let videoEnabled: NSButton = self.videoEnabled {
+
+        if let videoEnabled = self.videoEnabled {
             videoEnabled.state = self.configs.videoEnabled ? .on : .off
-            
+
             self.toggleVideoConfigs(sender: videoEnabled)
         }
-        
-        if let cameraAppPath: NSTextField = self.cameraAppPath {
+
+        if let cameraAppPath = self.cameraAppPath {
             cameraAppPath.stringValue = self.configs.cameraAppPath
         }
-        
-        if let videoSavePath: NSTextField = self.videoSavePath {
-            videoSavePath.stringValue = self.configs.videoSavePath + DEConfigs.videoSavePathSuffix
+
+        if let videoSavePath = self.videoSavePath {
+            videoSavePath.stringValue = self.configs.videoSavePath + Configs.videoSavePathSuffix
         }
-        
-        if let imageTopics: NSTextView = self.imageTopics {
+
+        if let imageTopics = self.imageTopics {
             imageTopics.string = self.configs.imageTopics.joined(separator: "\n")
         }
     }
-    
+
     @IBAction func showFontPicker(sender: Any?) {
-        if let window: NSWindow = self.window {
-            window.makeFirstResponder(self)
-            
-            let panel: NSFontPanel = NSFontManager.shared.fontPanel(true)!
-            panel.showsResizeIndicator = true
-            
-            if let oldFont: NSFont = NSFont(name: self.fontName!, size: CGFloat(self.fontSize!)) {
-                panel.setPanelFont(oldFont, isMultiple: false)
-            }
-            
-            panel.orderFront(self)
+        guard let window = self.window else {
+            return
         }
+
+        window.makeFirstResponder(self)
+
+        let panel = NSFontManager.shared.fontPanel(true)!
+        panel.showsResizeIndicator = true
+
+        if let oldFont = NSFont(name: self.fontName!, size: CGFloat(self.fontSize!)) {
+            panel.setPanelFont(oldFont, isMultiple: false)
+        }
+
+        panel.orderFront(self)
     }
-    
+
     override func changeFont(_ sender: Any?) {
-        let manager = sender as! NSFontManager
-        
-        if let oldFont: NSFont = NSFont(name: self.fontName!, size: CGFloat(self.fontSize!)) {
-            let newFont: NSFont = manager.convert(oldFont)
-            
-            self.fontName = newFont.fontName
-            self.fontSize = Float(newFont.pointSize)
-            
-            self.displayFont(name: self.fontName!, size: self.fontSize!)
+        guard
+            let fontName = self.fontName,
+            let fontSize = self.fontSize else {
+            return
         }
+
+        guard let manager = sender as? NSFontManager else {
+            return
+        }
+
+        guard let oldFont = NSFont(name: fontName, size: CGFloat(fontSize)) else {
+            return
+        }
+
+        let newFont = manager.convert(oldFont)
+
+        self.fontName = newFont.fontName
+        self.fontSize = Float(newFont.pointSize)
+
+        self.displayFont(name: self.fontName!, size: self.fontSize!)
     }
-    
+
     private func displayFont(name: String, size: Float) {
-        if let font: NSTextField = self.font {
+        if let font = self.font {
             font.stringValue = name + ", " + String(Int(size)) + " pt."
         }
     }
-    
+
     @IBAction func toggleVideoConfigs(sender: Any?) {
-        if let videoEnabled   : NSButton    = self.videoEnabled,
-           let cameraAppPicker: NSButton    = self.cameraAppPicker,
-           let cameraAppPath  : NSTextField = self.cameraAppPath,
-           let videoSavePicker: NSButton    = self.videoSavePicker,
-           let videoSavePath  : NSTextField = self.videoSavePath {
+        if
+            let videoEnabled    = self.videoEnabled,
+            let cameraAppPicker = self.cameraAppPicker,
+            let cameraAppPath   = self.cameraAppPath,
+            let videoSavePicker = self.videoSavePicker,
+            let videoSavePath   = self.videoSavePath {
             if videoEnabled.state == .on {
                 cameraAppPicker.isEnabled = true
                 cameraAppPath.isEnabled   = true
@@ -130,61 +143,65 @@ final class DEConfigSheetController: NSWindowController {
             }
         }
     }
-    
+
     @IBAction func showCameraAppPathPicker(sender: Any?) {
-        if let cameraAppPath: NSTextField = self.cameraAppPath {
-            let panel: NSOpenPanel = NSOpenPanel()
-            
-            panel.title                   = "Choose SecurityCamera app"
-            panel.showsResizeIndicator    = true
-            panel.showsToolbarButton      = true
-            panel.showsHiddenFiles        = true
-            panel.canChooseFiles          = true
-            panel.canChooseDirectories    = false
-            panel.allowsMultipleSelection = false
-            
-            if panel.runModal() == NSApplication.ModalResponse.OK, let url = panel.url {
-                cameraAppPath.stringValue = url.path
-            }
+        guard let cameraAppPath = self.cameraAppPath else {
+            return
+        }
+
+        let panel = NSOpenPanel()
+
+        panel.title                   = "Choose SecurityCamera app"
+        panel.showsResizeIndicator    = true
+        panel.showsToolbarButton      = true
+        panel.showsHiddenFiles        = true
+        panel.canChooseFiles          = true
+        panel.canChooseDirectories    = false
+        panel.allowsMultipleSelection = false
+
+        if panel.runModal() == NSApplication.ModalResponse.OK, let url = panel.url {
+            cameraAppPath.stringValue = url.path
         }
     }
-    
+
     @IBAction func showVideoSavePathPicker(sender: Any?) {
-        if let videoSavePath: NSTextField = self.videoSavePath {
-            let panel: NSOpenPanel = NSOpenPanel()
-            
-            panel.title                   = "Choose video save path"
-            panel.showsResizeIndicator    = true
-            panel.showsToolbarButton      = true
-            panel.showsHiddenFiles        = true
-            panel.canChooseFiles          = false
-            panel.canChooseDirectories    = true
-            panel.allowsMultipleSelection = false
-            
-            if panel.runModal() == NSApplication.ModalResponse.OK, let url = panel.url {
-                videoSavePath.stringValue = url.path + DEConfigs.videoSavePathSuffix
-            }
+        guard let videoSavePath = self.videoSavePath else {
+            return
+        }
+
+        let panel = NSOpenPanel()
+
+        panel.title                   = "Choose video save path"
+        panel.showsResizeIndicator    = true
+        panel.showsToolbarButton      = true
+        panel.showsHiddenFiles        = true
+        panel.canChooseFiles          = false
+        panel.canChooseDirectories    = true
+        panel.allowsMultipleSelection = false
+
+        if panel.runModal() == NSApplication.ModalResponse.OK, let url = panel.url {
+            videoSavePath.stringValue = url.path + Configs.videoSavePathSuffix
         }
     }
-    
+
     @IBAction func cancel(sender: Any?) {
         self.dismiss()
     }
-    
+
     @IBAction func ok(sender: Any?) {
-        if let apiKey: NSTextField = self.apiKey {
+        if let apiKey = self.apiKey {
             self.configs.apiKey = apiKey.stringValue
         }
-        
-        if let darken: NSSlider = self.darken {
+
+        if let darken = self.darken {
             self.configs.darken = darken.integerValue
         }
-        
-        if let maxZoom: NSSlider = self.maxZoom {
+
+        if let maxZoom = self.maxZoom {
             self.configs.maxZoom = maxZoom.integerValue
         }
-        
-        if let duration: NSPopUpButton = self.duration {
+
+        if let duration = self.duration {
             if duration.indexOfSelectedItem == 0 {
                 self.configs.duration = 15
             } else if duration.indexOfSelectedItem == 1 {
@@ -197,30 +214,30 @@ final class DEConfigSheetController: NSWindowController {
                 self.configs.duration = 300
             }
         }
-        
-        if let videoEnabled: NSButton = self.videoEnabled {
+
+        if let videoEnabled = self.videoEnabled {
             self.configs.videoEnabled = videoEnabled.state == .on
         }
-        
-        if let cameraAppPath: NSTextField = self.cameraAppPath {
+
+        if let cameraAppPath = self.cameraAppPath {
             self.configs.cameraAppPath = cameraAppPath.stringValue
         }
-        
-        if let videoSavePath: NSTextField = self.videoSavePath,
-           let range: Range = videoSavePath.stringValue.range(of: DEConfigs.videoSavePathSuffix) {
+
+        if let videoSavePath = self.videoSavePath,
+           let range: Range = videoSavePath.stringValue.range(of: Configs.videoSavePathSuffix) {
             self.configs.videoSavePath = String(videoSavePath.stringValue[..<range.lowerBound])
         }
-        
-        if let imageTopics: NSTextView = self.imageTopics {
+
+        if let imageTopics = self.imageTopics {
             self.configs.imageTopics = imageTopics.string.lines
         }
-        
+
         self.dismiss()
     }
-    
+
     private func dismiss() {
-        if let window: NSWindow = self.window,
-           let parent: NSWindow = window.sheetParent {
+        if let window = self.window,
+           let parent = window.sheetParent {
             parent.endSheet(window)
         }
     }

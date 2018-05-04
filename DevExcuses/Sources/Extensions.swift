@@ -5,7 +5,7 @@ extension HTTPURLResponse {
     var isSuccess: Bool {
         return self.statusCode == 200
     }
-    
+
     var statusMessage: String {
         return HTTPURLResponse.localizedString(forStatusCode: self.statusCode)
     }
@@ -32,26 +32,28 @@ extension Double {
 extension String {
     var lines: [String] {
         var lines: [String] = []
-        
+
         self.enumerateLines { line, _ in
             lines.append(line)
         }
-        
+
         return lines
     }
 }
 
-extension DEPhoto {
+extension Photo {
     func download() -> Observable<Data> {
         return Observable.create { observer in
-            if let urls  : DEPhotoUrls = self.urls,
-               let custom: String      = urls.custom,
-               let url   : URL         = URL(string: custom) {
+            if
+                let urls   = self.urls,
+                let custom = urls.custom,
+                let url    = URL(string: custom) {
                 URLSession.shared.dataTask(with: url) { (data, response, error) in
-                    if let error: Error = error {
+                    if let error = error {
                         observer.onError(error as NSError)
-                    } else if let response: HTTPURLResponse = response as? HTTPURLResponse,
-                              let data    : Data            = data {
+                    } else if
+                        let response = response as? HTTPURLResponse,
+                        let data     = data {
                         if response.isSuccess {
                             observer.onNext(data)
                         } else {
@@ -62,7 +64,7 @@ extension DEPhoto {
                     }
                 }.resume()
             }
-            
+
             return Disposables.create()
         }
     }

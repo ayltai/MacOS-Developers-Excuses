@@ -1,20 +1,24 @@
 PODS:
   - RxSwift (4.1.2)
+  - SwiftLint (0.25.1)
   - Unbox (2.5.0)
 
 DEPENDENCIES:
   - RxSwift (~> 4.1)
+  - SwiftLint
   - Unbox (~> 2.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - RxSwift
+    - SwiftLint
     - Unbox
 
 SPEC CHECKSUMS:
   RxSwift: e49536837d9901277638493ea537394d4b55f570
+  SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   Unbox: 30e437e6151a6de16139375fd4e8dd9a664cfbf7
 
-PODFILE CHECKSUM: 968e1176762158af630632222f6a2b977df9a344
+PODFILE CHECKSUM: 557efbabd12fe7be69da6caded47e09ea84f6fd8
 
 COCOAPODS: 1.5.0

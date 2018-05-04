@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="DEConfigSheetController" customModule="Developers_Excuses" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="ConfigSheetController" customModule="Developers_Excuses" customModuleProvider="target">
             <connections>
                 <outlet property="apiKey" destination="qJQ-36-bI2" id="QgV-LM-xGM"/>
                 <outlet property="cameraAppPath" destination="2da-63-8hl" id="xCz-MQ-2r7"/>
@@ -27,7 +26,7 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="yW3-uD-4hL" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES"/>
             <rect key="contentRect" x="242" y="148" width="720" height="400"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2304" height="1274"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
             <view key="contentView" id="p3g-o3-RvH">
                 <rect key="frame" x="0.0" y="0.0" width="720" height="400"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -249,14 +248,14 @@
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vge-hl-6Ys">
                         <rect key="frame" x="475" y="76" width="225" height="274"/>
                         <clipView key="contentView" id="saW-gs-agc">
-                            <rect key="frame" x="1" y="1" width="223" height="272"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <rect key="frame" x="1" y="1" width="208" height="272"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" selectionGranularity="word" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="CBg-2p-LpP">
-                                    <rect key="frame" x="0.0" y="0.0" width="223" height="272"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="208" height="272"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="223" height="272"/>
+                                    <size key="minSize" width="208" height="272"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <allowedInputSourceLocales>
@@ -271,7 +270,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="JWd-FN-FPZ">
-                            <rect key="frame" x="208" y="1" width="16" height="272"/>
+                            <rect key="frame" x="209" y="1" width="15" height="272"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>

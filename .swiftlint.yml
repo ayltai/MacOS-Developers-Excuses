@@ -1,0 +1,18 @@
+excluded:
+  - Pods
+disabled_rules:
+  - colon
+  - line_length
+  - trailing_comma
+cyclomatic_complexity:
+  warning: 15
+  error  : 20
+function_body_length:
+  warning: 150
+  error  : 300
+file_length:
+  warning: 300
+  error  : 500
+type_body_length:
+  warning: 300
+  error  : 500
