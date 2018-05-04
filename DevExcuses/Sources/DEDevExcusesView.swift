@@ -3,38 +3,90 @@ import RxSwift
 import ScreenSaver
 
 class DEDevExcusesView: ScreenSaverView {
-    private struct Constants {
-        private let configs: DEConfigs = DEConfigs()
-        
-        let excuseStyle     : NSMutableParagraphStyle = NSMutableParagraphStyle()
-        let userNameStyle   : NSMutableParagraphStyle = NSMutableParagraphStyle()
-        let profileUrlStyle : NSMutableParagraphStyle = NSMutableParagraphStyle()
-        let excuseShadow    : NSShadow                = NSShadow()
-        let creditShadow    : NSShadow                = NSShadow()
-        let excuseFont      : NSFont!
-        let creditFont      : NSFont!
-        let excuseLineHeight: Float
-        let creditLineHeight: Float
-        
-        init(isPreview: Bool) {
-            self.excuseFont       = NSFont(name: self.configs.excuseFont.fontName, size: isPreview ? self.configs.excuseFont.pointSize / 4 : self.configs.excuseFont.pointSize)
-            self.creditFont       = NSFont(name: self.configs.excuseFont.fontName, size: isPreview ? self.configs.excuseFont.pointSize / 8 : self.configs.excuseFont.pointSize / 3.5)
-            self.excuseLineHeight = self.excuseFont.lineHeight
-            self.creditLineHeight = self.creditFont.lineHeight
-            
-            self.excuseStyle.alignment     = NSTextAlignment.center
-            self.userNameStyle.alignment   = NSTextAlignment.left
-            self.profileUrlStyle.alignment = NSTextAlignment.right
-            
-            self.excuseShadow.shadowColor      = NSColor.black
-            self.excuseShadow.shadowOffset     = CGSize(width: DEConfigurations.Excuse.Shadow.offset, height: -DEConfigurations.Excuse.Shadow.offset)
-            self.excuseShadow.shadowBlurRadius = DEConfigurations.Excuse.Shadow.radius
-            
-            self.creditShadow.shadowColor      = NSColor.black
-            self.creditShadow.shadowOffset     = CGSize(width: DEConfigurations.Credit.Shadow.offset, height: -DEConfigurations.Credit.Shadow.offset)
-            self.creditShadow.shadowBlurRadius = DEConfigurations.Credit.Shadow.radius
-        }
-    }
+    private static let userNamePrefix  : String = "Unsplash > "
+    private static let profileUrlSuffix: String = "?utm_source=Developers%20Excuses&utm_medium=referral"
+    
+    private static let excuses: [String] = [
+        "I thought you signed off on that.",
+        "That feature was slated for phase two.",
+        "That feature would be outside the scope.",
+        "It must be a hardware problem.",
+        "It's never shown unexpected behavior like this before.",
+        "There must be something strange in your data.",
+        "Well, that's a first.",
+        "I haven't touched that code in weeks.",
+        "Oh, you said you DIDN'T want that to happen?",
+        "That's already fixed. It just hasn't taken effect yet.",
+        "I couldn't find any library that can even do that.",
+        "I usually get a notification when that happens.",
+        "Oh, that was just a temporary fix.",
+        "It's never done that before.",
+        "It's a compatibility issue.",
+        "Everything looks fine on my end.",
+        "That error means it was successful.",
+        "I forgot to commit the code that fixes that.",
+        "You must have done something wrong.",
+        "That wasn't in the original specification.",
+        "I haven't had any experience with that before.",
+        "That's the fault of the graphic designer.",
+        "I'll have to fix that at a later date.",
+        "I told you yesterday it would be done by the end of today.",
+        "I haven't been able to reproduce that.",
+        "It's just some unlucky coincidence.",
+        "I thought you signed off on that.",
+        "That wouldn't be economically feasible.",
+        "I didn't create that part of the program.",
+        "It probably won't happen again.",
+        "Actually, that's a feature.",
+        "I have too many other high priority things to do right now.",
+        "Our internet connection must not be working.",
+        "It's always been like that.",
+        "What did you type in wrong to get it to crash?",
+        "I thought I finished that.",
+        "The request must have dropped some packets.",
+        "It is working on my computer.",
+        "It was working yesterday.",
+        "You are working with the wrong version.",
+        "The third party application is causing the problem.",
+        "Right now I am doing the analysis, so I haven't started the work yet.",
+        "Please raise a defect, I will check it.",
+        "Try restarting your machine.",
+        "I don't think there's fault with my code.",
+        "Someone must have changed my code.",
+        "I had too many projects so I had to rush that feature.",
+        "I'm still working on that.",
+        "That's a character encoding issue.",
+        "There must have been a miscommunication on the requirements.",
+        "We weren't given enough time to write unit tests.",
+        "Our code quality is up to industry standards.",
+        "That is a known bug with the framework.",
+        "That feature is a nice to have.",
+        "Have you cleared your cache?",
+        "That's been fixed, but the code still has to be released.",
+        "That's been fixed on another branch.",
+        "The developer who coded that doesn't work here anymore.",
+        "That is part of the old system.",
+        "It was probably a race condition.",
+        "That is how we were asked to build it.",
+        "There must be a problem with the virtual machine.",
+        "We have to do it that way for security reasons.",
+        "I just need one more day to work on that.",
+        "That code was written by the last guy.",
+        "It was such a simple change I didn't think it needed testing.",
+        "The file must have corrupted.",
+        "There is nothing in my error logs.",
+        "That's an industry best practice.",
+        "It must be an issue with the firewall.",
+        "It's just a warning, not an error.",
+        "There's only a one in a million chance of that error occurring.",
+        "That software should have been updated ages ago.",
+        "Are you sure you want it to work that way?",
+        "I'm pretty sure that works most of the time.",
+        "I was busy fixing more important issues."
+    ]
+    
+    private static let duration  : TimeInterval = 15
+    private static let textMargin: Int          = 8
     
     private lazy var configSheetController: DEConfigSheetController = {
         return DEConfigSheetController()
@@ -42,24 +94,59 @@ class DEDevExcusesView: ScreenSaverView {
     
     private let configs: DEConfigs = DEConfigs()
     
+    private let excuseStyle     : NSMutableParagraphStyle = NSMutableParagraphStyle()
+    private let userNameStyle   : NSMutableParagraphStyle = NSMutableParagraphStyle()
+    private let profileUrlStyle : NSMutableParagraphStyle = NSMutableParagraphStyle()
+    private let excuseShadow    : NSShadow                = NSShadow()
+    private let creditShadow    : NSShadow                = NSShadow()
+    
+    private var excuseLineHeight: Float = 0
+    private var creditLineHeight: Float = 0
+    private var excuseFont      : NSFont?
+    private var creditFont      : NSFont?
+    
     private var imageView     : DEKenBurnsView?
     private var excuseView    : NSTextField?
     private var userNameView  : NSTextField?
     private var profileUrlView: NSTextField?
     
-    private var constants : Constants!
-    private var client    : DEClient!
-    private var process   : Process    = Process()
+    private var client    : DEClient?
+    private var process   : Process?
     private var disposeBag: DisposeBag = DisposeBag()
     
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
         
-        self.animationTimeInterval = Double(self.configs.refreshTimeInterval)
-        self.constants             = Constants(isPreview: isPreview)
-        self.process.launchPath = "SecurityCamera"
-        self.process.arguments  = ["/tmp/security-"]
+        if let excuseFont: NSFont = NSFont(name: self.configs.fontName, size: isPreview ? CGFloat(self.configs.fontSize) / 3.75 : CGFloat(self.configs.fontSize)) {
+            self.excuseLineHeight = excuseFont.lineHeight
+            self.excuseFont       = excuseFont
+        }
+        
+        if let creditFont: NSFont = NSFont(name: self.configs.fontName, size: isPreview ? CGFloat(self.configs.fontSize) / 7.5 : CGFloat(self.configs.fontSize / 3.75)) {
+            self.creditLineHeight = creditFont.lineHeight
+            self.creditFont       = creditFont
+        }
+        
+        self.excuseStyle.alignment     = NSTextAlignment.center
+        self.userNameStyle.alignment   = NSTextAlignment.left
+        self.profileUrlStyle.alignment = NSTextAlignment.right
+        
+        self.excuseShadow.shadowColor      = NSColor.black
+        self.excuseShadow.shadowBlurRadius = CGFloat(self.configs.fontSize / 3.75)
+        
+        self.creditShadow.shadowColor      = NSColor.black
+        self.creditShadow.shadowBlurRadius = CGFloat(self.configs.fontSize / 7.5)
+        
         self.client                = DEClient(apiKey: self.configs.apiKey)
+        self.animationTimeInterval = Double(self.configs.duration)
+        
+        if self.configs.videoEnabled && !isPreview {
+            let process: Process = Process()
+            process.launchPath = self.configs.cameraAppPath
+            process.arguments  = [self.configs.videoSavePath + "/SecurityCamera-"]
+            
+            self.process = process
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -75,63 +162,69 @@ class DEDevExcusesView: ScreenSaverView {
     }
     
     override func startAnimation() {
-        if !self.isPreview && !self.process.isRunning {
-            self.process.launch()
+        if let process: Process = self.process {
+            if !self.isPreview && !process.isRunning {
+                process.launch()
+            }
         }
         
         super.startAnimation()
     }
     
     override func stopAnimation() {
-        if !self.isPreview && self.process.isRunning {
-            self.process.terminate()
-        }
-        
         super.stopAnimation()
+        
+        if let process: Process = self.process {
+            if !self.isPreview && process.isRunning {
+                process.terminate()
+            }
+        }
     }
     
     override func animateOneFrame() {
-        self.client.random(size: self.frame.size, query: DEConfigurations.Image.topics)
-            .subscribe{ event in
-                if let error = event.error {
-                    self.update(
-                        excuse    : error.localizedDescription,
-                        background: nil,
-                        userName  : nil,
-                        profileUrl: nil
-                    )
-                    
-                    self.setNeedsDisplay(self.frame)
-                } else if let photo = event.element {
-                    photo.download()
-                        .observeOn(MainScheduler.instance)
-                        .subscribeOn(CurrentThreadScheduler.instance)
-                        .subscribe{ event in
-                            if let error = event.error {
-                                self.update(
-                                    excuse    : error.localizedDescription,
-                                    background: nil,
-                                    userName  : nil,
-                                    profileUrl: nil
-                                )
-                            } else if let data       = event.element,
-                                      let user       = photo.user,
-                                      let userName   = user.name,
-                                      let links      = user.links,
-                                      let profileUrl = links.html {
-                                self.update(
-                                    excuse    : DEConfigurations.excuses[DEConfigurations.excuses.count.random()],
-                                    background: data,
-                                    userName  : userName,
-                                    profileUrl: profileUrl)
+        if let client: DEClient = self.client {
+            client.random(size: self.frame.size, query: self.configs.imageTopics)
+                .subscribe{ event in
+                    if let error: Error = event.error {
+                        self.update(
+                            excuse    : error.localizedDescription,
+                            background: nil,
+                            userName  : nil,
+                            profileUrl: nil
+                        )
+                        
+                        self.setNeedsDisplay(self.frame)
+                    } else if let photo: DEPhoto = event.element {
+                        photo.download()
+                            .observeOn(MainScheduler.instance)
+                            .subscribeOn(CurrentThreadScheduler.instance)
+                            .subscribe{ event in
+                                if let error: Error = event.error {
+                                    self.update(
+                                        excuse    : error.localizedDescription,
+                                        background: nil,
+                                        userName  : nil,
+                                        profileUrl: nil
+                                    )
+                                } else if let data      : Data        = event.element,
+                                          let user      : DEUser      = photo.user,
+                                          let userName  : String      = user.name,
+                                          let links     : DEUserLinks = user.links,
+                                          let profileUrl: String      = links.html {
+                                    self.update(
+                                        excuse    : DEDevExcusesView.excuses[DEConfigurations.excuses.count.random()],
+                                        background: data,
+                                        userName  : userName,
+                                        profileUrl: profileUrl)
+                                }
+                                
+                                self.setNeedsDisplay(self.frame)
                             }
-                            
-                            self.setNeedsDisplay(self.frame)
-                        }
-                        .disposed(by: self.disposeBag)
+                            .disposed(by: self.disposeBag)
+                    }
                 }
-            }
-            .disposed(by: self.disposeBag)
+                .disposed(by: self.disposeBag)
+        }
     }
     
     private func update(excuse: String, background: Data?, userName: String?, profileUrl: String?) {
@@ -139,17 +232,18 @@ class DEDevExcusesView: ScreenSaverView {
             self.updateImageView(data: background)
         }
         
-        if let userName = userName {
+        if let userName: String = userName,
+           let font    : NSFont = self.creditFont {
             let userNameView: NSTextField = self.updateTextField(
-                string   : DEConfigurations.Credit.userNamePrefix + userName,
-                alignment: self.constants.userNameStyle.alignment,
-                font     : self.constants.creditFont,
-                shadow   : self.constants.creditShadow,
+                string   : DEDevExcusesView.userNamePrefix + userName,
+                alignment: self.userNameStyle.alignment,
+                font     : font,
+                shadow   : self.creditShadow,
                 frame    : NSRect(
-                    x     : CGFloat(Int(self.frame.origin.x) + DEConfigurations.textMargin),
+                    x     : CGFloat(Int(self.frame.origin.x) + DEDevExcusesView.textMargin),
                     y     : self.frame.origin.y,
-                    width : CGFloat(Int(self.frame.size.width) - DEConfigurations.textMargin * 2),
-                    height: CGFloat(self.constants.creditLineHeight) * 1.5))
+                    width : CGFloat(Int(self.frame.size.width) - DEDevExcusesView.textMargin * 2),
+                    height: CGFloat(self.creditLineHeight) * 1.5))
             
             if let oldUserNameView = self.userNameView {
                 oldUserNameView.removeFromSuperview()
@@ -158,17 +252,18 @@ class DEDevExcusesView: ScreenSaverView {
             self.userNameView = userNameView
         }
         
-        if let profileUrl = profileUrl {
+        if let profileUrl: String = profileUrl,
+           let font      : NSFont = self.creditFont{
             let profileUrlView: NSTextField = self.updateTextField(
-                string   : profileUrl + DEConfigurations.Credit.profileUrlSuffix,
-                alignment: self.constants.profileUrlStyle.alignment,
-                font     : self.constants.creditFont,
-                shadow   : self.constants.creditShadow,
+                string   : profileUrl + DEDevExcusesView.profileUrlSuffix,
+                alignment: self.profileUrlStyle.alignment,
+                font     : font,
+                shadow   : self.creditShadow,
                 frame    : NSRect(
-                    x     : CGFloat(Int(self.frame.origin.x) + DEConfigurations.textMargin),
+                    x     : CGFloat(Int(self.frame.origin.x) + DEDevExcusesView.textMargin),
                     y     : self.frame.origin.y,
-                    width : CGFloat(Int(self.frame.size.width) - DEConfigurations.textMargin * 2),
-                    height: CGFloat(self.constants.creditLineHeight) * 1.5))
+                    width : CGFloat(Int(self.frame.size.width) - DEDevExcusesView.textMargin * 2),
+                    height: CGFloat(self.creditLineHeight) * 1.5))
             
             if let oldProfileUrlView = self.profileUrlView {
                 oldProfileUrlView.removeFromSuperview()
@@ -177,22 +272,24 @@ class DEDevExcusesView: ScreenSaverView {
             self.profileUrlView = profileUrlView
         }
         
-        let excuseView: NSTextField = self.updateTextField(
-            string   : excuse,
-            alignment: self.constants.excuseStyle.alignment,
-            font     : self.constants.excuseFont,
-            shadow   : self.constants.excuseShadow,
-            frame    : NSRect(
-                x     : self.frame.origin.x,
-                y     : CGFloat((Int(self.frame.size.height) - Int(self.constants.excuseLineHeight) * 4) / 2),
-                width : self.frame.size.width,
-                height: CGFloat(self.constants.excuseLineHeight) * 3))
-        
-        if let oldExcuseView = self.excuseView {
-            oldExcuseView.removeFromSuperview()
+        if let font: NSFont = self.excuseFont {
+            let excuseView: NSTextField = self.updateTextField(
+                string   : excuse,
+                alignment: self.excuseStyle.alignment,
+                font     : font,
+                shadow   : self.excuseShadow,
+                frame    : NSRect(
+                    x     : self.frame.origin.x,
+                    y     : CGFloat((Int(self.frame.size.height) - Int(self.excuseLineHeight) * 4) / 2),
+                    width : self.frame.size.width,
+                    height: CGFloat(self.excuseLineHeight) * 3))
+            
+            if let oldExcuseView = self.excuseView {
+                oldExcuseView.removeFromSuperview()
+            }
+            
+            self.excuseView = excuseView
         }
-        
-        self.excuseView = excuseView
     }
     
     private func updateImageView(data: Data) {
@@ -202,7 +299,7 @@ class DEDevExcusesView: ScreenSaverView {
         imageView.animate(
             image   : NSImage(data: data),
             alpha   : CGFloat(1 - Float(self.configs.darken) / 100),
-            duration: Double(self.configs.refreshTimeInterval))
+            duration: self.isPreview ? DEDevExcusesView.duration : Double(self.configs.duration))
         
         if let oldImageView = self.imageView {
             oldImageView.removeFromSuperview()

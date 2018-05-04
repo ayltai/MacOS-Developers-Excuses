@@ -6,7 +6,7 @@ final class DEKenBurnsView: NSImageView {
     func animate(image: NSImage?, alpha: CGFloat, duration: TimeInterval) {
         self.image = image
         
-        if let image = self.image {
+        if let image: NSImage = self.image {
             let width         : Double = Double(image.size.width)
             let height        : Double = Double(image.size.height)
             let maxScale      : Double = Double(self.configs.maxZoom) / 100
@@ -32,7 +32,7 @@ final class DEKenBurnsView: NSImageView {
             yAnimation.fromValue    = DEKenBurnsView.randomTranslation(min: minTranslation, max: height, scale: fromScale)
             yAnimation.toValue      = DEKenBurnsView.randomTranslation(min: minTranslation, max: height, scale: toScale)
             
-            let layer = CALayer()
+            let layer: CALayer = CALayer()
             layer.add(scaleAnimation, forKey: scaleAnimation.keyPath)
             layer.add(xAnimation,     forKey: xAnimation.keyPath)
             layer.add(yAnimation,     forKey: yAnimation.keyPath)

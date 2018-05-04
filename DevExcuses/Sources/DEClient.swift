@@ -20,18 +20,19 @@ final class DEClient {
                 URLQueryItem(name: "h", value: String(Int(size.height)))
             ]
             
-            if let query = query {
+            if let query: [String] = query {
                 queryItems.append(URLQueryItem(name: "query", value: query[query.count.random()]))
             }
             
-            var mutable = URLComponents(url: URL(string: DEClient.Constants.endPoint)!, resolvingAgainstBaseURL: true)!
+            var mutable: URLComponents = URLComponents(url: URL(string: DEClient.Constants.endPoint)!, resolvingAgainstBaseURL: true)!
             mutable.path       = "/photos/random"
             mutable.queryItems = queryItems
             
             URLSession.shared.dataTask(with: mutable.url!) { (data, response, error) in
-                if let error = error {
+                if let error: Error = error {
                     observer.onError(error as NSError)
-                } else if let response = response as? HTTPURLResponse, let data = data {
+                } else if let response: HTTPURLResponse = response as? HTTPURLResponse,
+                          let data    : Data            = data {
                     if response.isSuccess {
                         do {
                             let photo: DEPhoto = try unbox(data: data)

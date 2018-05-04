@@ -7,7 +7,7 @@ let saveTo     : String
 if CommandLine.arguments.count > 1 {
     saveTo = CommandLine.arguments[1]
 } else {
-    saveTo = "/tmp"
+    saveTo = "~/Movies/SecurityCamera-"
 }
 
 do {
