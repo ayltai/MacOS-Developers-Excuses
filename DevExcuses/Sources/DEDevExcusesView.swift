@@ -132,10 +132,10 @@ class DEDevExcusesView: ScreenSaverView {
         self.profileUrlStyle.alignment = NSTextAlignment.right
         
         self.excuseShadow.shadowColor      = NSColor.black
-        self.excuseShadow.shadowBlurRadius = CGFloat(self.configs.fontSize / 3.75)
+        self.excuseShadow.shadowBlurRadius = CGFloat(self.configs.fontSize / 4)
         
         self.creditShadow.shadowColor      = NSColor.black
-        self.creditShadow.shadowBlurRadius = CGFloat(self.configs.fontSize / 7.5)
+        self.creditShadow.shadowBlurRadius = CGFloat(self.configs.fontSize / 8)
         
         self.client                = DEClient(apiKey: self.configs.apiKey)
         self.animationTimeInterval = Double(self.configs.duration)
