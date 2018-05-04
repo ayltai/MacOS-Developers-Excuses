@@ -212,7 +212,7 @@ class DEDevExcusesView: ScreenSaverView {
                                           let links     : DEUserLinks = user.links,
                                           let profileUrl: String      = links.html {
                                     self.update(
-                                        excuse    : DEDevExcusesView.excuses[DEConfigurations.excuses.count.random()],
+                                        excuse    : DEDevExcusesView.excuses[DEDevExcusesView.excuses.count.random()],
                                         background: data,
                                         userName  : userName,
                                         profileUrl: profileUrl)
