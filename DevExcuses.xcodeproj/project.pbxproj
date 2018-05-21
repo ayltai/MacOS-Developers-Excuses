@@ -36,7 +36,7 @@
 		E73C70152099B72D0086AADC /* KenBurnsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KenBurnsView.swift; sourceTree = "<group>"; };
 		E744BCFF209AF4D6001B8597 /* ConfigSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfigSheet.xib; sourceTree = "<group>"; };
 		E744BD02209AF6BA001B8597 /* ConfigSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSheetController.swift; sourceTree = "<group>"; };
-		E75B4B15209CA74500A44D10 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		E75B4B15209CA74500A44D10 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E75B4B18209CB08000A44D10 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		E77A61982081F06800F8E1B7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E7C981DA209B3D9700459F44 /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };

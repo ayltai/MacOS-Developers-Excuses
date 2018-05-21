@@ -83,6 +83,12 @@ class DevExcusesView: ScreenSaverView {
         "Are you sure you want it to work that way?",
         "I'm pretty sure that works most of the time.",
         "I was busy fixing more important issues.",
+        "I'm not familiar with it so I didn't fix it in case I made it worse",
+        "How is that possible",
+        "The third party documentation is wrong",
+        "The project manager told me to do it that way",
+        "My time was split in a way that meant I couldn't do either project properly",
+        "The existing design makes it difficult to do the right thing",
     ]
 
     private static let duration  : TimeInterval = 15
