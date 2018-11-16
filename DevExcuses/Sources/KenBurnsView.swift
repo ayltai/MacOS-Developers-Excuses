@@ -3,15 +3,21 @@ import Cocoa
 final class KenBurnsView: NSImageView {
     private let configs = Configs()
 
+    private var duration: TimeInterval = 15
+
     func animate(image: NSImage?, alpha: CGFloat, duration: TimeInterval) {
-        self.image = image
+        self.image         = image
+        self.alphaValue    = alpha
+        self.duration      = duration
+    }
 
-        guard let image = self.image else {
-            return
-        }
+    override var wantsUpdateLayer: Bool {
+        return true
+    }
 
-        let width          = Double(image.size.width)
-        let height         = Double(image.size.height)
+    override func makeBackingLayer() -> CALayer {
+        let width          = Double(self.frame.size.width)
+        let height         = Double(self.frame.size.height)
         let maxScale       = Double(self.configs.maxZoom) / 100
         let fromScale      = Double.random(min: 1, max: maxScale)
         let toScale        = Double.random(min: 1, max: maxScale)
@@ -40,8 +46,7 @@ final class KenBurnsView: NSImageView {
         layer.add(xAnimation, forKey: xAnimation.keyPath)
         layer.add(yAnimation, forKey: yAnimation.keyPath)
 
-        self.layer      = layer
-        self.alphaValue = alpha
+        return layer
     }
 
     private static func randomTranslation(min: Double, max: Double, scale: Double) -> Double {
