@@ -21,6 +21,6 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2018 Alan Tai. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
-	<string></string>
+	<string>Developers_Excuses.DevExcusesView</string>
 </dict>
 </plist>

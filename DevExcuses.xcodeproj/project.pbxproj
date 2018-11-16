@@ -180,7 +180,7 @@
 			attributes = {
 				CLASSPREFIX = DE;
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Alan Tai";
 				TargetAttributes = {
 					E7CDCC6B2080F42200A553DF = {
@@ -381,6 +381,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
