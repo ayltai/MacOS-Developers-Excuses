@@ -7,9 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		241F01FA0BFC50E2D06A6568 /* libPods-devexcuses-DevexcusesTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7239B59036FBDC9BED38B3E8 /* libPods-devexcuses-DevexcusesTest.a */; };
 		6166270BC30A7670329D31CD /* libPods-DevexcusesTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 235CD2DE50CF5D60EEA290AF /* libPods-DevexcusesTest.a */; };
 		7B480B4C223254820019EB07 /* DevexcusesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B480B4B223254820019EB07 /* DevexcusesTest.swift */; };
 		7B480B52223254C00019EB07 /* UnsplashClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B480B51223254C00019EB07 /* UnsplashClientTest.swift */; };
+		7B480B67223264530019EB07 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FB2080FF78006D94DA /* User.swift */; };
+		7B480B68223264530019EB07 /* UserLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FD20810014006D94DA /* UserLinks.swift */; };
+		7B480B69223264530019EB07 /* PhotoUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FF208100F3006D94DA /* PhotoUrls.swift */; };
+		7B480B6A223264530019EB07 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71263012081016D006D94DA /* Photo.swift */; };
+		7B480B6B2232645A0019EB07 /* UnsplashClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712630320810241006D94DA /* UnsplashClient.swift */; };
+		7B480B6C2232645E0019EB07 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70963302081BDD8006B381C /* Extensions.swift */; };
 		E1E7CB2762EDB9E72C389550 /* libPods-devexcuses.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAB50A2F0A56B20D37C93A0 /* libPods-devexcuses.a */; };
 		E70963312081BDD8006B381C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70963302081BDD8006B381C /* Extensions.swift */; };
 		E71262FC2080FF78006D94DA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FB2080FF78006D94DA /* User.swift */; };
@@ -29,6 +36,8 @@
 		235CD2DE50CF5D60EEA290AF /* libPods-DevexcusesTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DevexcusesTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27C93E4E9697D42766097BFE /* Pods-devexcuses.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devexcuses.release.xcconfig"; path = "Pods/Target Support Files/Pods-devexcuses/Pods-devexcuses.release.xcconfig"; sourceTree = "<group>"; };
 		3E863DF3A0B23534EF450EF5 /* Pods-DevexcusesTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevexcusesTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-DevexcusesTest/Pods-DevexcusesTest.release.xcconfig"; sourceTree = "<group>"; };
+		539D1BC2C6EE6F55F52398E0 /* Pods-devexcuses-DevexcusesTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devexcuses-DevexcusesTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-devexcuses-DevexcusesTest/Pods-devexcuses-DevexcusesTest.release.xcconfig"; sourceTree = "<group>"; };
+		7239B59036FBDC9BED38B3E8 /* libPods-devexcuses-DevexcusesTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-devexcuses-DevexcusesTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B480B49223254820019EB07 /* DevexcusesTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DevexcusesTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B480B4B223254820019EB07 /* DevexcusesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevexcusesTest.swift; sourceTree = "<group>"; };
 		7B480B4D223254820019EB07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,6 +61,7 @@
 		E7CDCC6C2080F42200A553DF /* Developers Excuses.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Developers Excuses.saver"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7CDCC732080F42200A553DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7CDCC792080F56100A553DF /* DevExcusesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevExcusesView.swift; sourceTree = "<group>"; };
+		EB174E73B45414BD36FB7786 /* Pods-devexcuses-DevexcusesTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devexcuses-DevexcusesTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-devexcuses-DevexcusesTest/Pods-devexcuses-DevexcusesTest.debug.xcconfig"; sourceTree = "<group>"; };
 		F37687B36ED18159F224F4DF /* Pods-DevexcusesTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevexcusesTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DevexcusesTest/Pods-DevexcusesTest.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6166270BC30A7670329D31CD /* libPods-DevexcusesTest.a in Frameworks */,
+				241F01FA0BFC50E2D06A6568 /* libPods-devexcuses-DevexcusesTest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +93,8 @@
 				27C93E4E9697D42766097BFE /* Pods-devexcuses.release.xcconfig */,
 				F37687B36ED18159F224F4DF /* Pods-DevexcusesTest.debug.xcconfig */,
 				3E863DF3A0B23534EF450EF5 /* Pods-DevexcusesTest.release.xcconfig */,
+				EB174E73B45414BD36FB7786 /* Pods-devexcuses-DevexcusesTest.debug.xcconfig */,
+				539D1BC2C6EE6F55F52398E0 /* Pods-devexcuses-DevexcusesTest.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -168,6 +181,7 @@
 				ADAB50A2F0A56B20D37C93A0 /* libPods-devexcuses.a */,
 				A2680B78518C1AF55F934501 /* libPods-devexcusestest.a */,
 				235CD2DE50CF5D60EEA290AF /* libPods-DevexcusesTest.a */,
+				7239B59036FBDC9BED38B3E8 /* libPods-devexcuses-DevexcusesTest.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -296,7 +310,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DevexcusesTest-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-devexcuses-DevexcusesTest-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -342,8 +356,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B480B6A223264530019EB07 /* Photo.swift in Sources */,
+				7B480B6B2232645A0019EB07 /* UnsplashClient.swift in Sources */,
+				7B480B69223264530019EB07 /* PhotoUrls.swift in Sources */,
+				7B480B6C2232645E0019EB07 /* Extensions.swift in Sources */,
 				7B480B52223254C00019EB07 /* UnsplashClientTest.swift in Sources */,
 				7B480B4C223254820019EB07 /* DevexcusesTest.swift in Sources */,
+				7B480B68223264530019EB07 /* UserLinks.swift in Sources */,
+				7B480B67223264530019EB07 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,7 +389,7 @@
 /* Begin XCBuildConfiguration section */
 		7B480B4E223254820019EB07 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F37687B36ED18159F224F4DF /* Pods-DevexcusesTest.debug.xcconfig */;
+			baseConfigurationReference = EB174E73B45414BD36FB7786 /* Pods-devexcuses-DevexcusesTest.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -386,13 +406,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		7B480B4F223254820019EB07 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E863DF3A0B23534EF450EF5 /* Pods-DevexcusesTest.release.xcconfig */;
+			baseConfigurationReference = 539D1BC2C6EE6F55F52398E0 /* Pods-devexcuses-DevexcusesTest.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -407,7 +427,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.ayltai.DevexcusesTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

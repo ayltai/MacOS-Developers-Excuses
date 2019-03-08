@@ -6,7 +6,7 @@ target 'devexcuses' do
   pod 'SwiftLint'
 
   target 'DevexcusesTest' do
-    inherit! :search_paths
+    inherit! :complete
     # Pods for testing
     pod 'Quick'
     pod 'Nimble'
