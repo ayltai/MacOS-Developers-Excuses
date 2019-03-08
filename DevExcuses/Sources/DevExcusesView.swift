@@ -318,6 +318,9 @@ class DevExcusesView: ScreenSaverView {
 
     private func updateImageView(data: Data) {
         let imageView = KenBurnsView(frame: self.frame)
+        imageView.wantsLayer = true
+
+        self.addSubview(imageView)
 
         imageView.animate(
             image   : NSImage(data: data),
@@ -328,7 +331,6 @@ class DevExcusesView: ScreenSaverView {
             oldImageView.removeFromSuperview()
         }
 
-        self.addSubview(imageView)
         self.imageView = imageView
     }
 
