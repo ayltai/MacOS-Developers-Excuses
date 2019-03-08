@@ -26,7 +26,7 @@ final class UnsplashClient {
             mutable.path       = "/photos/random"
             mutable.queryItems = queryItems
 
-            URLSession.shared.dataTask(with: mutable.url!) { (data, response, error) in
+            URLSession(configuration: URLSessionConfiguration.default).dataTask(with: mutable.url!) { (data, response, error) in
                 if let error = error {
                     observer.onError(error as NSError)
                 } else if
