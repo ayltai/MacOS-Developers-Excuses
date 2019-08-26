@@ -6,9 +6,9 @@ final class KenBurnsView: NSImageView {
     private var duration: TimeInterval = 15
 
     func animate(image: NSImage?, alpha: CGFloat, duration: TimeInterval) {
-        self.image         = image
-        self.alphaValue    = alpha
-        self.duration      = duration
+        self.image      = image
+        self.alphaValue = alpha
+        self.duration   = duration
     }
 
     override var wantsUpdateLayer: Bool {

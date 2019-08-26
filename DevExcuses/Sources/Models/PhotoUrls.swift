@@ -1,9 +1,13 @@
-import Unbox
+struct PhotoUrls: Codable {
+    enum CodingKeys: CodingKey {
+        case custom
+    }
 
-struct PhotoUrls: Unboxable {
     let custom: String?
 
-    init(unboxer: Unboxer) throws {
-        self.custom = unboxer.unbox(key: "custom")
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.custom = try container.decodeIfPresent(String.self, forKey: .custom)
     }
 }

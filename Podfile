@@ -1,8 +1,7 @@
-platform :osx, '10.10'
+platform :osx, '10.14'
 
 target 'devexcuses' do
-  pod 'RxSwift', '~> 4.0'
-  pod 'Unbox',   '~> 3.0'
+  pod 'RxSwift'
   pod 'SwiftLint'
 
   target 'DevexcusesTest' do

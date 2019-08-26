@@ -205,9 +205,9 @@ class DevExcusesView: ScreenSaverView {
             .subscribe { event in
                 if let error = event.error {
                     self.update(
-                        excuse: error.localizedDescription,
+                        excuse    : error.localizedDescription,
                         background: nil,
-                        userName: nil,
+                        userName  : nil,
                         profileUrl: nil
                     )
 
@@ -219,9 +219,9 @@ class DevExcusesView: ScreenSaverView {
                         .subscribe { event in
                             if let error = event.error {
                                 self.update(
-                                    excuse: error.localizedDescription,
+                                    excuse    : error.localizedDescription,
                                     background: nil,
-                                    userName: nil,
+                                    userName  : nil,
                                     profileUrl: nil
                                 )
                             } else if
@@ -231,9 +231,9 @@ class DevExcusesView: ScreenSaverView {
                                 let links      = user.links,
                                 let profileUrl = links.html {
                                 self.update(
-                                    excuse: DevExcusesView.excuses[DevExcusesView.excuses.count.random()],
+                                    excuse    : DevExcusesView.excuses[DevExcusesView.excuses.count.random()],
                                     background: data,
-                                    userName: userName,
+                                    userName  : userName,
                                     profileUrl: profileUrl)
                             }
 

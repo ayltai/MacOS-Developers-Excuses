@@ -1,9 +1,13 @@
-import Unbox
+struct UserLinks: Codable {
+    enum CodingKeys: CodingKey {
+        case html
+    }
 
-struct UserLinks: Unboxable {
     let html: String?
 
-    init(unboxer: Unboxer) throws {
-        self.html = unboxer.unbox(key: "html")
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.html = try container.decodeIfPresent(String.self, forKey: .html)
     }
 }

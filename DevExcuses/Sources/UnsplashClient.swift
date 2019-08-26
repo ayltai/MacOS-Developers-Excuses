@@ -1,5 +1,4 @@
 import RxSwift
-import Unbox
 
 final class UnsplashClient {
     private static let endPoint = "https://api.unsplash.com/"
@@ -26,7 +25,7 @@ final class UnsplashClient {
             mutable.path       = "/photos/random"
             mutable.queryItems = queryItems
 
-            URLSession(configuration: URLSessionConfiguration.default).dataTask(with: mutable.url!) { (data, response, error) in
+            URLSession.shared.dataTask(with: mutable.url!) { (data, response, error) in
                 if let error = error {
                     observer.onError(error as NSError)
                 } else if
@@ -34,7 +33,7 @@ final class UnsplashClient {
                     let data     = data {
                     if response.isSuccess {
                         do {
-                            let photo: Photo = try unbox(data: data)
+                            let photo: Photo = try JSONDecoder().decode(Photo.self, from: data)
                             observer.onNext(photo)
                         } catch let error as NSError {
                             observer.onError(error)
