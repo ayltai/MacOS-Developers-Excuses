@@ -6,8 +6,6 @@ final class Configs: NSObject {
     private static let apiKey           = "api"
     private static let darkenKey        = "darken"
     private static let maxZoomKey       = "maxZoom"
-    private static let fontNameKey      = "fontName"
-    private static let fontSizeKey      = "fontSize"
     private static let durationKey      = "duration"
     private static let videoEnabledKey  = "videoEnabled"
     private static let cameraAppPathKey = "cameraAppPath"
@@ -53,30 +51,6 @@ final class Configs: NSObject {
 
         set {
             self.set(newValue, forKey: Configs.maxZoomKey)
-        }
-    }
-
-    var fontName: String {
-        get {
-            guard let value = self.defaults.string(forKey: Configs.fontNameKey) else {
-                return ""
-            }
-
-            return value
-        }
-
-        set {
-            self.set(newValue, forKey: Configs.fontNameKey)
-        }
-    }
-
-    var fontSize: Float {
-        get {
-            return self.defaults.float(forKey: Configs.fontSizeKey)
-        }
-
-        set {
-            self.set(newValue, forKey: Configs.fontSizeKey)
         }
     }
 
@@ -147,8 +121,6 @@ final class Configs: NSObject {
             Configs.apiKey          : "",
             Configs.darkenKey       : 15,
             Configs.maxZoomKey      : 175,
-            Configs.fontNameKey     : "Menlo-Regular",
-            Configs.fontSizeKey     : 45,
             Configs.durationKey     : 15,
             Configs.videoEnabledKey : true,
             Configs.cameraAppPathKey: "SecurityCamera",

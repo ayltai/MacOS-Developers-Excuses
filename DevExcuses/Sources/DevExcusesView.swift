@@ -105,11 +105,12 @@ class DevExcusesView: ScreenSaverView {
     private let profileUrlStyle = NSMutableParagraphStyle()
     private let excuseShadow    = NSShadow()
     private let creditShadow    = NSShadow()
+    private let fontName        = "Menlo-Regular"
 
-    private var excuseLineHeight: Float = 0
-    private var creditLineHeight: Float = 0
     private var excuseFont      : NSFont?
     private var creditFont      : NSFont?
+    private var excuseLineHeight: Float = 0
+    private var creditLineHeight: Float = 0
 
     private var imageView     : KenBurnsView?
     private var excuseView    : NSTextField?
@@ -125,19 +126,15 @@ class DevExcusesView: ScreenSaverView {
         super.init(frame: frame, isPreview: isPreview)
 
         if let excuseFont = NSFont(
-            name: self.configs.fontName,
-            size: isPreview
-                ? CGFloat(self.configs.fontSize) / 3.75
-                : CGFloat(self.configs.fontSize)) {
+            name: self.fontName,
+            size: self.bounds.width / 40) {
             self.excuseLineHeight = excuseFont.lineHeight
             self.excuseFont       = excuseFont
         }
 
         if let creditFont = NSFont(
-            name: self.configs.fontName,
-            size: isPreview
-                ? CGFloat(self.configs.fontSize) / 7.5
-                : CGFloat(self.configs.fontSize / 3.75)) {
+            name: self.fontName,
+            size: self.bounds.width / 120) {
             self.creditLineHeight = creditFont.lineHeight
             self.creditFont       = creditFont
         }
@@ -147,10 +144,10 @@ class DevExcusesView: ScreenSaverView {
         self.profileUrlStyle.alignment = NSTextAlignment.right
 
         self.excuseShadow.shadowColor      = NSColor.black
-        self.excuseShadow.shadowBlurRadius = CGFloat(self.configs.fontSize / 4)
+        self.excuseShadow.shadowBlurRadius = self.bounds.width / 384
 
         self.creditShadow.shadowColor      = NSColor.black
-        self.creditShadow.shadowBlurRadius = CGFloat(self.configs.fontSize / 8)
+        self.creditShadow.shadowBlurRadius = self.bounds.width / 512
 
         self.client                = UnsplashClient(apiKey: self.configs.apiKey)
         self.animationTimeInterval = Double(self.configs.duration)

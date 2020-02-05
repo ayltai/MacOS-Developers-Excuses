@@ -3,13 +3,9 @@ import AppKit
 final class ConfigSheetController: NSWindowController {
     private let configs = Configs()
 
-    private var fontName: String?
-    private var fontSize: Float?
-
     @IBOutlet weak var apiKey         : NSTextField?
     @IBOutlet weak var darken         : NSSlider?
     @IBOutlet weak var maxZoom        : NSSlider?
-    @IBOutlet weak var font           : NSTextField?
     @IBOutlet weak var duration       : NSPopUpButton?
     @IBOutlet weak var videoEnabled   : NSButton?
     @IBOutlet weak var cameraAppPicker: NSButton?
@@ -19,7 +15,7 @@ final class ConfigSheetController: NSWindowController {
     @IBOutlet weak var imageTopics    : NSTextView?
 
     override var windowNibName: NSNib.Name! {
-        return NSNib.Name(rawValue: "ConfigSheet")
+        return "ConfigSheet"
     }
 
     override func windowDidLoad() {
@@ -36,11 +32,6 @@ final class ConfigSheetController: NSWindowController {
         if let maxZoom = self.maxZoom {
             maxZoom.integerValue = self.configs.maxZoom
         }
-
-        self.fontName = self.configs.fontName
-        self.fontSize = self.configs.fontSize
-
-        self.displayFont(name: self.configs.fontName, size: self.configs.fontSize)
 
         if let duration = self.duration {
             if self.configs.duration == 15 {
@@ -74,52 +65,6 @@ final class ConfigSheetController: NSWindowController {
 
         if let imageTopics = self.imageTopics {
             imageTopics.string = self.configs.imageTopics.joined(separator: "\n")
-        }
-    }
-
-    @IBAction func showFontPicker(sender: Any?) {
-        guard let window = self.window else {
-            return
-        }
-
-        window.makeFirstResponder(self)
-
-        let panel = NSFontManager.shared.fontPanel(true)!
-        panel.showsResizeIndicator = true
-
-        if let oldFont = NSFont(name: self.fontName!, size: CGFloat(self.fontSize!)) {
-            panel.setPanelFont(oldFont, isMultiple: false)
-        }
-
-        panel.orderFront(self)
-    }
-
-    override func changeFont(_ sender: Any?) {
-        guard
-            let fontName = self.fontName,
-            let fontSize = self.fontSize else {
-            return
-        }
-
-        guard let manager = sender as? NSFontManager else {
-            return
-        }
-
-        guard let oldFont = NSFont(name: fontName, size: CGFloat(fontSize)) else {
-            return
-        }
-
-        let newFont = manager.convert(oldFont)
-
-        self.fontName = newFont.fontName
-        self.fontSize = Float(newFont.pointSize)
-
-        self.displayFont(name: self.fontName!, size: self.fontSize!)
-    }
-
-    private func displayFont(name: String, size: Float) {
-        if let font = self.font {
-            font.stringValue = name + ", " + String(Int(size)) + " pt."
         }
     }
 
