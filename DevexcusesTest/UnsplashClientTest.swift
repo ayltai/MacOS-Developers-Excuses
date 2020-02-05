@@ -14,7 +14,7 @@ class UnsplashClientTest: XCTestCase {
         for _ in 0...2 {
             waitUntil(timeout: 10.0) { done in
                 _ = self.unsplashClient.random(size: targetSize, query: nil)
-                    .subscribe(onNext: { photo in
+                    .subscribe(onNext: { _ in
                         done()
                     })
             }
