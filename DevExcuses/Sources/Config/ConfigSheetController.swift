@@ -44,6 +44,8 @@ final class ConfigSheetController: NSWindowController {
                 duration.selectItem(at: 3)
             } else if self.configs.duration == 300 {
                 duration.selectItem(at: 4)
+            } else if self.configs.duration == 600 {
+                duration.selectItem(at: 5)
             } else {
                 duration.selectItem(at: 0)
             }
@@ -157,6 +159,8 @@ final class ConfigSheetController: NSWindowController {
                 self.configs.duration = 120
             } else if duration.indexOfSelectedItem == 4 {
                 self.configs.duration = 300
+            } else if duration.indexOfSelectedItem == 5 {
+                self.configs.duration = 600
             }
         }
 
