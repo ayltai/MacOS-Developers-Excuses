@@ -3,14 +3,15 @@ import ScreenSaver
 final class Configs: NSObject {
     public static let videoSavePathSuffix = "/SecurityCamera-%timestamp%.mov"
 
-    private static let apiKey           = "api"
-    private static let darkenKey        = "darken"
-    private static let maxZoomKey       = "maxZoom"
-    private static let durationKey      = "duration"
-    private static let videoEnabledKey  = "videoEnabled"
-    private static let cameraAppPathKey = "cameraAppPath"
-    private static let videoSavePathKey = "videoSavePath"
-    private static let imageTopicsKey   = "imageTopics"
+    private static let backgroundEnabledKey = "backgroundEnabled"
+    private static let animationEnabledKey  = "animationEnabled"
+    private static let darkenKey            = "darken"
+    private static let maxZoomKey           = "maxZoom"
+    private static let durationKey          = "duration"
+    private static let videoEnabledKey      = "videoEnabled"
+    private static let cameraAppPathKey     = "cameraAppPath"
+    private static let videoSavePathKey     = "videoSavePath"
+    private static let imageTopicsKey       = "imageTopics"
 
     private let defaults: ScreenSaverDefaults = Configs.defaults()
 
@@ -20,17 +21,23 @@ final class Configs: NSObject {
         self.register()
     }
 
-    var apiKey: String {
+    var backgroundEnabled: Bool {
         get {
-            guard let value = self.defaults.string(forKey: Configs.apiKey) else {
-                return ""
-            }
-
-            return value
+            return self.defaults.bool(forKey: Configs.backgroundEnabledKey)
         }
 
         set {
-            self.set(newValue, forKey: Configs.apiKey)
+            self.set(newValue, forKey: Configs.backgroundEnabledKey)
+        }
+    }
+
+    var animationEnabled: Bool {
+        get {
+            return self.defaults.bool(forKey: Configs.animationEnabledKey)
+        }
+
+        set {
+            self.set(newValue, forKey: Configs.animationEnabledKey)
         }
     }
 
@@ -118,14 +125,15 @@ final class Configs: NSObject {
 
     func register() {
         let defaults: [String: Any] = [
-            Configs.apiKey          : "",
-            Configs.darkenKey       : 15,
-            Configs.maxZoomKey      : 175,
-            Configs.durationKey     : 15,
-            Configs.videoEnabledKey : true,
-            Configs.cameraAppPathKey: "SecurityCamera",
-            Configs.videoSavePathKey: "~/Movies",
-            Configs.imageTopicsKey  : [
+            Configs.backgroundEnabledKey: true,
+            Configs.animationEnabledKey : true,
+            Configs.darkenKey           : 15,
+            Configs.maxZoomKey          : 175,
+            Configs.durationKey         : 15,
+            Configs.videoEnabledKey     : true,
+            Configs.cameraAppPathKey    : "SecurityCamera",
+            Configs.videoSavePathKey    : "~/Movies",
+            Configs.imageTopicsKey      : [
                 "nature",
                 "landscape",
                 "water",

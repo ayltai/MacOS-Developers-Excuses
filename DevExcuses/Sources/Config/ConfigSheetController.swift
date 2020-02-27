@@ -1,18 +1,20 @@
 import AppKit
 
+@available(OSX 10.15, *)
 final class ConfigSheetController: NSWindowController {
     private let configs = Configs()
 
-    @IBOutlet weak var apiKey         : NSTextField?
-    @IBOutlet weak var darken         : NSSlider?
-    @IBOutlet weak var maxZoom        : NSSlider?
-    @IBOutlet weak var duration       : NSPopUpButton?
-    @IBOutlet weak var videoEnabled   : NSButton?
-    @IBOutlet weak var cameraAppPicker: NSButton?
-    @IBOutlet weak var cameraAppPath  : NSTextField?
-    @IBOutlet weak var videoSavePicker: NSButton?
-    @IBOutlet weak var videoSavePath  : NSTextField?
-    @IBOutlet weak var imageTopics    : NSTextView?
+    @IBOutlet weak var backgroundEnabled: NSSwitch?
+    @IBOutlet weak var animationEnabled : NSSwitch?
+    @IBOutlet weak var darken           : NSSlider?
+    @IBOutlet weak var maxZoom          : NSSlider?
+    @IBOutlet weak var duration         : NSPopUpButton?
+    @IBOutlet weak var videoEnabled     : NSSwitch?
+    @IBOutlet weak var cameraAppPicker  : NSButton?
+    @IBOutlet weak var cameraAppPath    : NSTextField?
+    @IBOutlet weak var videoSavePicker  : NSButton?
+    @IBOutlet weak var videoSavePath    : NSTextField?
+    @IBOutlet weak var imageTopics      : NSTextView?
 
     override var windowNibName: NSNib.Name! {
         return "ConfigSheet"
@@ -21,8 +23,16 @@ final class ConfigSheetController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        if let apiKey = self.apiKey {
-            apiKey.stringValue = self.configs.apiKey
+        if let backgroundEnabled = self.backgroundEnabled {
+            backgroundEnabled.state = self.configs.backgroundEnabled ? .on : .off
+
+            self.toggleBackgroundConfigs(sender: backgroundEnabled)
+        }
+
+        if let animationEnabled = self.animationEnabled {
+            animationEnabled.state = self.configs.animationEnabled ? .on : .off
+
+            self.toggleAnimationConfigs(sender: animationEnabled)
         }
 
         if let darken = self.darken {
@@ -67,6 +77,39 @@ final class ConfigSheetController: NSWindowController {
 
         if let imageTopics = self.imageTopics {
             imageTopics.string = self.configs.imageTopics.joined(separator: "\n")
+        }
+    }
+
+    @IBAction func toggleBackgroundConfigs(sender: Any?) {
+        if
+            let backgroundEnabled = self.backgroundEnabled,
+            let animationEnabled  = self.animationEnabled,
+            let darken            = self.darken,
+            let maxZoom           = self.maxZoom,
+            let imageTopics       = self.imageTopics {
+            if backgroundEnabled.state == .on {
+                animationEnabled.isEnabled = true
+                darken.isEnabled           = true
+                maxZoom.isEnabled          = true
+                imageTopics.isEditable     = true
+            } else if backgroundEnabled.state == .off {
+                animationEnabled.isEnabled = false
+                darken.isEnabled           = false
+                maxZoom.isEnabled          = false
+                imageTopics.isEditable     = false
+            }
+        }
+    }
+
+    @IBAction func toggleAnimationConfigs(sender: Any?) {
+        if
+            let animationEnabled = self.animationEnabled,
+            let maxZoom          = self.maxZoom {
+            if animationEnabled.state == .on {
+                maxZoom.isEnabled = true
+            } else if animationEnabled.state == .off {
+                maxZoom.isEnabled = false
+            }
         }
     }
 
@@ -136,8 +179,12 @@ final class ConfigSheetController: NSWindowController {
     }
 
     @IBAction func ok(sender: Any?) {
-        if let apiKey = self.apiKey {
-            self.configs.apiKey = apiKey.stringValue
+        if let backgroundEnabled = self.backgroundEnabled {
+            self.configs.backgroundEnabled = backgroundEnabled.state == .on
+        }
+
+        if let animationEnabled = self.animationEnabled {
+            self.configs.animationEnabled = animationEnabled.state == .on
         }
 
         if let darken = self.darken {

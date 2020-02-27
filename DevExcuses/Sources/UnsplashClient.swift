@@ -1,18 +1,11 @@
 import RxSwift
 
 final class UnsplashClient {
-    private static let endPoint = "https://api.unsplash.com/"
-
-    private let apiKey: String
-
-    init(apiKey: String) {
-        self.apiKey = apiKey
-    }
+    private static let endPoint = "https://unsplash-api-proxy.appspot.com/"
 
     func random(size: CGSize, query: [String]?) -> Observable<Photo> {
         return Observable.create { observer in
             var queryItems: [URLQueryItem] = [
-                URLQueryItem(name: "client_id", value: self.apiKey),
                 URLQueryItem(name: "w", value: String(Int(size.width))),
                 URLQueryItem(name: "h", value: String(Int(size.height)))
             ]

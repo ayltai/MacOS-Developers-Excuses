@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		241F01FA0BFC50E2D06A6568 /* libPods-devexcuses-DevexcusesTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7239B59036FBDC9BED38B3E8 /* libPods-devexcuses-DevexcusesTest.a */; };
+		2D5C42A02407952800A01D6D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5C429F2407952800A01D6D /* Constants.swift */; };
 		7B480B52223254C00019EB07 /* UnsplashClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B480B51223254C00019EB07 /* UnsplashClientTest.swift */; };
 		7B480B67223264530019EB07 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FB2080FF78006D94DA /* User.swift */; };
 		7B480B68223264530019EB07 /* UserLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71262FD20810014006D94DA /* UserLinks.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		27C93E4E9697D42766097BFE /* Pods-devexcuses.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devexcuses.release.xcconfig"; path = "Pods/Target Support Files/Pods-devexcuses/Pods-devexcuses.release.xcconfig"; sourceTree = "<group>"; };
+		2D5C429F2407952800A01D6D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3E863DF3A0B23534EF450EF5 /* Pods-DevexcusesTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevexcusesTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-DevexcusesTest/Pods-DevexcusesTest.release.xcconfig"; sourceTree = "<group>"; };
 		539D1BC2C6EE6F55F52398E0 /* Pods-devexcuses-DevexcusesTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devexcuses-DevexcusesTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-devexcuses-DevexcusesTest/Pods-devexcuses-DevexcusesTest.release.xcconfig"; sourceTree = "<group>"; };
 		7239B59036FBDC9BED38B3E8 /* libPods-devexcuses-DevexcusesTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-devexcuses-DevexcusesTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,10 +130,11 @@
 			children = (
 				E744BD01209AF690001B8597 /* Config */,
 				E71262FA2080FF59006D94DA /* Models */,
+				2D5C429F2407952800A01D6D /* Constants.swift */,
 				E7CDCC792080F56100A553DF /* DevExcusesView.swift */,
-				E712630320810241006D94DA /* UnsplashClient.swift */,
-				E73C70152099B72D0086AADC /* KenBurnsView.swift */,
 				E70963302081BDD8006B381C /* Extensions.swift */,
+				E73C70152099B72D0086AADC /* KenBurnsView.swift */,
+				E712630320810241006D94DA /* UnsplashClient.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -249,7 +252,7 @@
 				};
 			};
 			buildConfigurationList = E7CDCC662080F42200A553DF /* Build configuration list for PBXProject "DevExcuses" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -366,6 +369,7 @@
 				E7CDCC7A2080F56100A553DF /* DevExcusesView.swift in Sources */,
 				E71263022081016D006D94DA /* Photo.swift in Sources */,
 				E744BD03209AF6BA001B8597 /* ConfigSheetController.swift in Sources */,
+				2D5C42A02407952800A01D6D /* Constants.swift in Sources */,
 				E712630420810241006D94DA /* UnsplashClient.swift in Sources */,
 				E7126300208100F3006D94DA /* PhotoUrls.swift in Sources */,
 				E7C981DB209B3D9700459F44 /* Configs.swift in Sources */,
@@ -549,7 +553,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.ayltai.devexcuses;
 				PRODUCT_NAME = "Developers Excuses";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -573,7 +577,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.ayltai.devexcuses;
 				PRODUCT_NAME = "Developers Excuses";
 				SWIFT_VERSION = 5.0;

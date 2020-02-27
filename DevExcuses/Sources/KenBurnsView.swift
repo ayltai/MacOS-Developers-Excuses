@@ -3,12 +3,9 @@ import Cocoa
 final class KenBurnsView: NSImageView {
     private let configs = Configs()
 
-    private var duration: TimeInterval = 15
-
-    func animate(image: NSImage?, alpha: CGFloat, duration: TimeInterval) {
+    func animate(image: NSImage?, alpha: CGFloat) {
         self.image      = image
         self.alphaValue = alpha
-        self.duration   = duration
     }
 
     override var wantsUpdateLayer: Bool {
@@ -16,37 +13,43 @@ final class KenBurnsView: NSImageView {
     }
 
     override func makeBackingLayer() -> CALayer {
-        let width          = Double(self.frame.size.width)
-        let height         = Double(self.frame.size.height)
-        let maxScale       = Double(self.configs.maxZoom) / 100
-        let fromScale      = Double.random(min: 1, max: maxScale)
-        let toScale        = Double.random(min: 1, max: maxScale)
-        let minTranslation = -(maxScale - 1)
+        let duration = Double(self.configs.duration)
 
-        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
-        scaleAnimation.autoreverses = true
-        scaleAnimation.duration     = duration
-        scaleAnimation.fromValue    = fromScale
-        scaleAnimation.toValue      = toScale
+        if self.configs.animationEnabled {
+            let width          = Double(self.frame.size.width)
+            let height         = Double(self.frame.size.height)
+            let maxScale       = Double(self.configs.maxZoom) / 100
+            let fromScale      = Double.random(min: 1, max: maxScale)
+            let toScale        = Double.random(min: 1, max: maxScale)
+            let minTranslation = 1 - maxScale
 
-        let xAnimation = CABasicAnimation(keyPath: "transform.translation.x")
-        xAnimation.autoreverses = true
-        xAnimation.duration     = duration
-        xAnimation.fromValue    = KenBurnsView.randomTranslation(min: minTranslation, max: width, scale: fromScale)
-        xAnimation.toValue      = KenBurnsView.randomTranslation(min: minTranslation, max: width, scale: toScale)
+            let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
+            scaleAnimation.autoreverses = true
+            scaleAnimation.duration     = duration
+            scaleAnimation.fromValue    = fromScale
+            scaleAnimation.toValue      = toScale
 
-        let yAnimation = CABasicAnimation(keyPath: "transform.translation.y")
-        yAnimation.autoreverses = true
-        yAnimation.duration     = duration
-        yAnimation.fromValue    = KenBurnsView.randomTranslation(min: minTranslation, max: height, scale: fromScale)
-        yAnimation.toValue      = KenBurnsView.randomTranslation(min: minTranslation, max: height, scale: toScale)
+            let xAnimation = CABasicAnimation(keyPath: "transform.translation.x")
+            xAnimation.autoreverses = true
+            xAnimation.duration     = duration
+            xAnimation.fromValue    = KenBurnsView.randomTranslation(min: minTranslation, max: width, scale: fromScale)
+            xAnimation.toValue      = KenBurnsView.randomTranslation(min: minTranslation, max: width, scale: toScale)
 
-        let layer = CALayer()
-        layer.add(scaleAnimation, forKey: scaleAnimation.keyPath)
-        layer.add(xAnimation, forKey: xAnimation.keyPath)
-        layer.add(yAnimation, forKey: yAnimation.keyPath)
+            let yAnimation = CABasicAnimation(keyPath: "transform.translation.y")
+            yAnimation.autoreverses = true
+            yAnimation.duration     = duration
+            yAnimation.fromValue    = KenBurnsView.randomTranslation(min: minTranslation, max: height, scale: fromScale)
+            yAnimation.toValue      = KenBurnsView.randomTranslation(min: minTranslation, max: height, scale: toScale)
 
-        return layer
+            let layer = CALayer()
+            layer.add(scaleAnimation, forKey: scaleAnimation.keyPath)
+            layer.add(xAnimation, forKey: xAnimation.keyPath)
+            layer.add(yAnimation, forKey: yAnimation.keyPath)
+
+            return layer
+        }
+
+        return CALayer()
     }
 
     private static func randomTranslation(min: Double, max: Double, scale: Double) -> Double {
