@@ -11,7 +11,7 @@ DEPENDENCIES:
   - SwiftLint
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Nimble
     - Quick
     - RxSwift
@@ -23,6 +23,6 @@ SPEC CHECKSUMS:
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   SwiftLint: 79d48a17c6565dc286c37efb8322c7b450f95c67
 
-PODFILE CHECKSUM: c4e102af2eb5609201f4523b659b339ea988fe7c
+PODFILE CHECKSUM: 3f9fed0626477e7d35f12f507bd3005ad206f717
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.9.1
