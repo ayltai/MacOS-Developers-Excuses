@@ -29,7 +29,7 @@ Place it to somewhere handy, such as `~/Downloads` or `/usr/bin`, and then updat
 ## Compatibility
 Developers Excuses screen saver requires OS X Catalina or later.
 
-**Note**: Apple has tightened up security in 10.15.4 and above. Although this application is safe, you may experience problems getting macOS to allow this application to run, since the Github builds are not notarized. If you experience this issue=, you can try to build the application yourself using the directions below.
+**Note**: Apple has tightened up security in 10.15.4 and above. Although this application is safe, you may experience problems getting macOS to allow this application to run, since the Github builds are not notarized. If you experience this issue, you can try to build the application yourself using the directions below.
 
 ## How to build
 0. Install [CocoaPods](https://cocoapods.org)
