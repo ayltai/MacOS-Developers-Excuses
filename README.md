@@ -4,6 +4,8 @@
 
 A macOS screen saver that shows a random [developer excuse](http://www.devexcuses.com) over a [beautiful photo background](https://unsplash.com). Made with ❤
 
+[![Buy me a coffee](https://img.shields.io/static/v1?label=Buy%20me%20a&message=coffee&color=important&style=for-the-badge&logo=buy-me-a-coffee&logoColor=white)](https://buymeacoff.ee/ayltai)
+
 ![Screenshot 1](Screenshots/screenshot-1.jpg)
 
 ![Screenshot 2](Screenshots/screenshot-2.jpg)

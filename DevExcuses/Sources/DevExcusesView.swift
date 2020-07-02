@@ -143,7 +143,7 @@ class DevExcusesView: ScreenSaverView {
                                 let links      = user.links,
                                 let profileUrl = links.html {
                                 self.update(
-                                    excuse    : Constants.excuses[Constants.excuses.count.random()],
+                                    excuse    : self.configs.quotes[self.configs.quotes.count.random()],
                                     background: data,
                                     userName  : userName,
                                     profileUrl: profileUrl
@@ -158,7 +158,7 @@ class DevExcusesView: ScreenSaverView {
                 .disposed(by: self.disposeBag)
         } else {
             self.update(
-                excuse    : Constants.excuses[Constants.excuses.count.random()],
+                excuse    : self.configs.quotes[self.configs.quotes.count.random()],
                 background: nil,
                 userName  : nil,
                 profileUrl: nil
