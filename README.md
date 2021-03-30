@@ -22,10 +22,10 @@ A macOS screen saver that shows a random [developer excuse](http://www.devexcuse
 ![Configurations](Screenshots/configurations.png)
 
 ## Downloads
-### [Screen Saver](Releases/1.5/screensaver.zip)
+### [Screen Saver](Releases/1.6/screensaver.zip)
 Double-click to install.
 
-### [Security Camera](Releases/1.5/SecurityCamera.zip)
+### [Security Camera](Releases/1.6/SecurityCamera.zip)
 Place it to somewhere handy, such as `~/Downloads` or `/usr/bin`, and then update its path in the screen saver configurations .
 
 ## Compatibility
