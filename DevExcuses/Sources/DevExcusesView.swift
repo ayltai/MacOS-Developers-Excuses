@@ -113,7 +113,7 @@ class DevExcusesView: ScreenSaverView {
                 return
             }
 
-            client.random(size: self.frame.size, query: self.configs.imageTopics)
+            client.random(query: self.configs.imageTopics)
                 .subscribe { event in
                     if let error = event.error {
                         self.update(
@@ -125,34 +125,34 @@ class DevExcusesView: ScreenSaverView {
 
                         self.setNeedsDisplay(self.frame)
                     } else if let photo = event.element {
-                        photo.download()
-                        .observeOn(MainScheduler.instance)
-                        .subscribeOn(CurrentThreadScheduler.instance)
-                        .subscribe { event in
-                            if let error = event.error {
-                                self.update(
-                                    excuse    : error.localizedDescription,
-                                    background: nil,
-                                    userName  : nil,
-                                    profileUrl: nil
-                                )
-                            } else if
-                                let data       = event.element,
-                                let user       = photo.user,
-                                let userName   = user.name,
-                                let links      = user.links,
-                                let profileUrl = links.html {
-                                self.update(
-                                    excuse    : self.configs.quotes[self.configs.quotes.count.random()],
-                                    background: data,
-                                    userName  : userName,
-                                    profileUrl: profileUrl
-                                )
-                            }
+                        photo.download(size: self.frame.size)
+                            .observeOn(MainScheduler.instance)
+                            .subscribeOn(CurrentThreadScheduler.instance)
+                            .subscribe { event in
+                                if let error = event.error {
+                                    self.update(
+                                        excuse    : error.localizedDescription,
+                                        background: nil,
+                                        userName  : nil,
+                                        profileUrl: nil
+                                    )
+                                } else if
+                                    let data       = event.element,
+                                    let user       = photo.user,
+                                    let userName   = user.name,
+                                    let links      = user.links,
+                                    let profileUrl = links.html {
+                                    self.update(
+                                        excuse    : self.configs.quotes[self.configs.quotes.count.random()],
+                                        background: data,
+                                        userName  : userName,
+                                        profileUrl: profileUrl
+                                    )
+                                }
 
-                            self.setNeedsDisplay(self.frame)
-                        }
-                        .disposed(by: self.disposeBag)
+                                self.setNeedsDisplay(self.frame)
+                            }
+                            .disposed(by: self.disposeBag)
                     }
                 }
                 .disposed(by: self.disposeBag)

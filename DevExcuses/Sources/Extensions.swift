@@ -42,12 +42,12 @@ extension String {
 }
 
 extension Photo {
-    func download() -> Observable<Data> {
+    func download(size: CGSize) -> Observable<Data> {
         return Observable.create { observer in
             if
-                let urls   = self.urls,
-                let custom = urls.custom,
-                let url    = URL(string: custom) {
+                let urls = self.urls,
+                let raw  = urls.raw,
+                let url  = URL(string: raw + "&w=" + String(Int(size.width)) + "&h=" + String(Int(size.height))) {
                 URLSession.shared.dataTask(with: url) { (data, response, error) in
                     if let error = error {
                         observer.onError(error as NSError)
