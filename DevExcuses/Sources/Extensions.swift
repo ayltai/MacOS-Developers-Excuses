@@ -47,7 +47,7 @@ extension Photo {
             if
                 let urls = self.urls,
                 let raw  = urls.raw,
-                let url  = URL(string: raw + "&w=" + String(Int(size.width)) + "&h=" + String(Int(size.height))) {
+                let url  = URL(string: raw + "&auto=compress&fit=crop&w=" + String(Int(size.width)) + "&h=" + String(Int(size.height))) {
                 URLSession.shared.dataTask(with: url) { (data, response, error) in
                     if let error = error {
                         observer.onError(error as NSError)
