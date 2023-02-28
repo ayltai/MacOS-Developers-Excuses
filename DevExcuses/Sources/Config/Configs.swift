@@ -123,16 +123,16 @@ final class Configs: NSObject {
             self.set(newValue, forKey: Configs.imageTopicsKey)
         }
     }
-    
+
     var quotes: [String] {
         get {
             guard let values = self.defaults.stringArray(forKey: Configs.quotesKey) else {
                 return []
             }
-            
+
             return values
         }
-        
+
         set {
             self.set(newValue, forKey: Configs.quotesKey)
         }
@@ -187,7 +187,7 @@ final class Configs: NSObject {
                 "That feature was slated for phase two.",
                 "That feature would be outside the scope.",
                 "It must be a hardware problem.",
-                "It's never shown unexpected behavior like this before.",
+                "It's never shown unexpected behaviour like this before.",
                 "There must be something strange in your data.",
                 "Well, that's a first.",
                 "I haven't touched that code in weeks.",
@@ -259,12 +259,12 @@ final class Configs: NSObject {
                 "Are you sure you want it to work that way?",
                 "I'm pretty sure that works most of the time.",
                 "I was busy fixing more important issues.",
-                "I'm not familiar with it so I didn't fix it in case I made it worse",
-                "How is that possible",
-                "The third party documentation is wrong",
-                "The project manager told me to do it that way",
-                "My time was split in a way that meant I couldn't do either project properly",
-                "The existing design makes it difficult to do the right thing",
+                "I'm not familiar with it so I didn't fix it in case I made it worse.",
+                "How is that possible?",
+                "The third party documentation is wrong.",
+                "The project manager told me to do it that way.",
+                "My time was split in a way that meant I couldn't do either project properly.",
+                "The existing design makes it difficult to do the right thing.",
             ]
         ]
 

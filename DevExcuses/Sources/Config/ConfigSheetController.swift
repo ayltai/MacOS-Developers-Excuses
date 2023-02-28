@@ -79,7 +79,7 @@ final class ConfigSheetController: NSWindowController {
         if let imageTopics = self.imageTopics {
             imageTopics.string = self.configs.imageTopics.joined(separator: "\n")
         }
-        
+
         if let quotes = self.quotes {
             quotes.string = self.configs.quotes.joined(separator: "\n")
         }
@@ -232,7 +232,7 @@ final class ConfigSheetController: NSWindowController {
         if let imageTopics = self.imageTopics {
             self.configs.imageTopics = imageTopics.string.lines
         }
-        
+
         if let quotes = self.quotes {
             self.configs.quotes = quotes.string.lines
         }

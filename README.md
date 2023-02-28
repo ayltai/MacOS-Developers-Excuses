@@ -40,8 +40,9 @@ Developers Excuses screen saver requires OS X Catalina or later.
 3. `cd MacOS-Developers-Excuses`
 4. Run `pod install`
 5. Open `DevExcuses.xcworkspace` in Xcode
-6. Build DevExcuses projects (`Command-B`)
+6. Set your [Unsplash API](https://unsplash.com/developers) key [here](https://github.com/ayltai/MacOS-Developers-Excuses/blob/master/DevExcuses/Sources/UnsplashClient.swift#L14)
+7. Build DevExcuses projects (`Command-B`)
   * You may get some warnings. They are generally self-explanatory. Make adjustments, as you wish for your preferences.
-7. Optionally build SecurityCamera project if you want to use the camera of your MacBook to record videos for security reason
-8. Right-click in your Xcode Project Navigator > DevExcuses > Products > Developer Excuses.saver
-9. Select "Open with External Editor"
+8. Optionally build SecurityCamera project if you want to use the camera of your MacBook to record videos for security reason
+9. Right-click in your Xcode Project Navigator > DevExcuses > Products > Developer Excuses.saver
+10. Select "Open with External Editor"
